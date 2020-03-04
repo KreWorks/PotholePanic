@@ -40,34 +40,34 @@ public class CameraController : MonoBehaviour
 
 		if(Input.mousePosition.x > screenWidth - screenBoundary || Input.mousePosition.x < 0 + screenBoundary || Input.mousePosition.y > screenHeight - screenBoundary || Input.mousePosition.y < 0 + screenBoundary)
 		{
-			ToggleCamera();
+			PanCamera();
 		}
 
 	}
 
-	void ToggleCamera()
+	void PanCamera()
 	{
 		float moveSpeedLocal = Time.deltaTime * moveSpeed / 3.0f;
 		if (Input.mousePosition.x > screenWidth - screenBoundary)
 		{
 			//Move camera
-			MoveCamera(new Vector3(1, 0, 0) * moveSpeedLocal);
+			MoveCamera(GetDirection(CameraMove.Horizontal) * moveSpeedLocal);
 		}
 
 		if (Input.mousePosition.x < 0 + screenBoundary)
 		{
 			//Move camera
-			MoveCamera(new Vector3(-1, 0, 0) * moveSpeedLocal);
+			MoveCamera(-1 * GetDirection(CameraMove.Horizontal) * moveSpeedLocal);
 		}
 
 		if (Input.mousePosition.y > screenHeight - screenBoundary)
 		{
-			MoveCamera(new Vector3(0, 0, 1) * moveSpeedLocal);
+			MoveCamera(GetDirection(CameraMove.Vertical) * moveSpeedLocal);
 		}
 
 		if (Input.mousePosition.y < 0 + screenBoundary)
 		{
-			MoveCamera(new Vector3(0, 0, -1) * moveSpeedLocal);
+			MoveCamera(-1 * GetDirection(CameraMove.Vertical) * moveSpeedLocal);
 		}
 	}
 
@@ -82,15 +82,15 @@ public class CameraController : MonoBehaviour
 
 	void MoveCameraInput()
 	{
-		Vector3 move = new Vector3(0, 0, 0);
+		Vector3 move =  new Vector3(0, 0, 0);
 		if (Input.GetAxis("Horizontal") != 0)
 		{
-			move -= Vector3.left * Input.GetAxisRaw("Horizontal") * moveSpeed * Time.deltaTime;
+			move += GetDirection(CameraMove.Horizontal, Input.GetAxisRaw("Horizontal")) * moveSpeed * Time.deltaTime;
 		}
 
 		if (Input.GetAxis("Vertical") != 0)
 		{
-			move = new Vector3(0,0,Input.GetAxis("Vertical") * moveSpeed * Time.deltaTime);
+			move += GetDirection(CameraMove.Vertical, Input.GetAxisRaw("Vertical")) * moveSpeed * Time.deltaTime;
 		}
 
 		MoveCamera(move);
@@ -104,7 +104,6 @@ public class CameraController : MonoBehaviour
 			{
 				mainCamera.orthographicSize -= zoomSpeed * Time.deltaTime;
 			}
-
 		}
 
 		if (zoomSize < 0)
@@ -124,21 +123,19 @@ public class CameraController : MonoBehaviour
 		mainCamera.orthographicSize = 3.0f;
 	}
 
-	Vector3 GetDirection(CameraMove type)
+	Vector3 GetDirection(CameraMove type, float strength = 1.0f)
 	{
 		Vector3 direction = new Vector3(0, 0, 0);
 
 		if (type == CameraMove.Horizontal)
 		{
-			direction = new Vector3(Input.GetAxisRaw("Horizontal"), 0, 0);
+			direction = new Vector3(strength, 0, 0);
 			direction = this.transform.rotation * direction;
 		}
 		if (type == CameraMove.Vertical)
 		{
-			direction = new Vector3(0, 0, -Input.GetAxisRaw("Vertical"));
-			Vector3 eulAngs = this.transform.eulerAngles;
-
-			direction = (Quaternion.Euler(eulAngs.x, eulAngs.z, eulAngs.y)) * direction;
+			direction = new Vector3(0, 0, strength);
+			direction = (Quaternion.Euler(0, this.transform.eulerAngles.y, 0)) * direction;
 		}
 
 		return direction;

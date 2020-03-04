@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour
 	public DifficultyLevel[] difficulties;
 
 	public UIManager uiManager;
+	public PotholeManager potholeManager; 
 
 	public int oneHourTime;
 	public int startHour = 12;
