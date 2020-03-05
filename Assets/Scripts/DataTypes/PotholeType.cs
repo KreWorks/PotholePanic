@@ -3,6 +3,6 @@
 [System.Serializable]
 public struct PotholeType 
 {
-	public GameObject holePrefab;
+	public GameObject prefab;
 	public float repairTime;
 }

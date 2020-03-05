@@ -8,7 +8,9 @@ public class GameManager : MonoBehaviour
 	public DifficultyLevel[] difficulties;
 
 	public UIManager uiManager;
-	public PotholeManager potholeManager; 
+	public PotholeManager potholeManager;
+
+	public RoadRepository roadRepository;
 
 	public int oneHourTime;
 	public int startHour = 12;
@@ -16,6 +18,8 @@ public class GameManager : MonoBehaviour
 	int difficulty;
 	int vehicleNumber;
 	int workerNumber;
+
+	CityGrid grid; 
 
 	float time; 
 
@@ -34,6 +38,8 @@ public class GameManager : MonoBehaviour
 				break;
 			}
 		}
+
+		grid = new CityGrid(2, 9, roadRepository, this.potholeManager.roadEnvironment);
 
 		uiManager.SetUIStart(workerNumber, vehicleNumber);
 	}

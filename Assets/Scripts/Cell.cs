@@ -7,6 +7,11 @@ public class Cell
 
 	public bool HasPothole { get => hasPothole; }
 
+	public void SetRoadModel(GameObject road)
+	{
+		this.road = road; 
+	}
+
 	public void SpawnPothole(GameObject pothole)
 	{
 		if (this.road != null)

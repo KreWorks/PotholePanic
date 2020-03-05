@@ -52,7 +52,7 @@ public class PotholeManager : MonoBehaviour
 		Road roadObject = roads[index];
 
 		//creating the object
-		GameObject potholeObj = Instantiate(holeTypes[sizeIndex].holePrefab,roadObject.transform.position, roadObject.transform.rotation);
+		GameObject potholeObj = Instantiate(holeTypes[sizeIndex].prefab,roadObject.transform.position, roadObject.transform.rotation);
 		
 		potholeObj.transform.parent = roadObject.transform.parent;
 		potholeObj.AddComponent<Pothole>();
