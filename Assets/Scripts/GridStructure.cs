@@ -1,18 +1,18 @@
 ﻿using UnityEngine;
 
-public class CityGrid
+public class GridStructure
 {
 	int cellSize; 
 	Cell[,] grid;
-	int gridSize;
+	int gridSize; 
 
-	RoadRepository roadRepository;
+	public int CellSize { get => cellSize; }
+	public int GridSize { get => gridSize; }
 
-	public CityGrid(int cellSize, int gridSize, RoadRepository roadRepository, GameObject roadParent)
+	public GridStructure(int cellSize, int gridSize)
 	{
 		this.cellSize = cellSize;
 		this.gridSize = gridSize;
-		this.roadRepository = roadRepository;
 
 		grid = new Cell[gridSize, gridSize];
 
@@ -20,47 +20,61 @@ public class CityGrid
 		{
 			for (int col = 0; col < grid.GetLength(1); col++)
 			{
-				grid[row, col] = SetRoadToGrid(row, col, roadParent); 
+				grid[row, col] = new Cell();
 			}
 		}
 	}
 
-	public Cell SetRoadToGrid(int i, int j, GameObject parent)
+	public int GetGridLength(int dimension)
 	{
-		Vector3 position = new Vector3(i * cellSize, 0, j * cellSize) - ((gridSize - 1) / 2.0f) * new Vector3(cellSize, 0, cellSize);
-		Quaternion rotation = GetRotation(i, j); 
+		return grid.GetLength(dimension);
+	}
+	
+	public void PlaceRoadToGrid(int x, int y, GameObject roadObejct, bool isPothole, bool firstSet = false)
+	{
+		if (firstSet)
+		{
+			grid[x, y].SetRoadModel(roadObejct);
+		}
+		grid[x,y].SetRoadObject(roadObejct, isPothole);
+	}
 
-		Cell gridCell = new Cell();
-		GameObject prefab = null; 
+	public GameObject GetRoadObjectFromGird(int x, int y)
+	{
+		return grid[x, y].GetRoadObject();
+	}
+
+	public RoadType GetRoadType(int i, int j)
+	{
+		RoadType roadType = RoadType.NotRoad; 
+
 		// Select each road type
 		if (IsCornerRoadCell(i, j))
 		{
-			prefab = roadRepository.roadModelCollection.cornerRoadPrefab.prefab;
+			roadType = RoadType.Corner;
 		}
 		else if (IsThreeWayRoadCell(i, j))
 		{
-			prefab = roadRepository.roadModelCollection.threeWayRoadPrefab.prefab; 
+			roadType = RoadType.ThreeWay;
 		}
 		else if (IsFourWayRoadCell(i, j))
 		{
-			prefab = roadRepository.roadModelCollection.fourWayRoadPrefab.prefab;
+			roadType = RoadType.FourWay;
 		}
 		else if (IsStraightRoadCell(i, j))
 		{
-			prefab = roadRepository.roadModelCollection.straightRoadPrefab.prefab;
+			roadType = RoadType.Straight;
 		}
-		
-		if(prefab != null) { 
-			GameObject road = GameObject.Instantiate(prefab, position, rotation);
-			road.transform.parent = parent.transform;
-			road.transform.name = "Road (" + i + ", " + j + ")";
-			gridCell.SetRoadModel(road);
-		}
-				
-		return gridCell;
+
+		return roadType;
 	}
 
-	private Quaternion GetRotation(int x, int y)
+	public bool CanSpawnPothole(int x, int y)
+	{
+		return IsStraightRoadCell(x, y) && !grid[x, y].HasPothole;
+	}
+
+	public Quaternion GetRotation(int x, int y)
 	{
 		Quaternion rotation = Quaternion.Euler(-90.0f, 0, 0);
 
@@ -87,13 +101,15 @@ public class CityGrid
 			rotation = Quaternion.Euler(-90.0f, 90.0f, 0);
 		}
 		//Randomness to spawn pothole in different lane
-		/*if (IsStraightRoadCell(x, y))
+		if (IsStraightRoadCell(x, y))
 		{
 			int random = x + y;
 			random = Mathf.FloorToInt(Mathf.Pow(-1, random));
-			rotation = Quaternion.Euler(rotation.eulerAngles.x, rotation.eulerAngles.y + 180 * random, rotation.eulerAngles.z);
-			Debug.Log("x: " + x + " y: " + y + " random: " + random + " angle: " + rotation.eulerAngles.y + 180 * random);
-		}*/
+			if (random == -1)
+			{
+				rotation = Quaternion.Euler(rotation.eulerAngles.x, rotation.eulerAngles.y + 180, rotation.eulerAngles.z);
+			}
+		}
 
 		return rotation; 
 	}
@@ -122,4 +138,13 @@ public class CityGrid
 	{
 		return ((x == 3 || x == 5) && (y == 3 || y == 5));
 	}
+}
+
+public enum RoadType
+{
+	NotRoad,
+	Straight, 
+	Corner, 
+	ThreeWay,
+	FourWay
 }

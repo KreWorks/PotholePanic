@@ -2,14 +2,20 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PotholeManager : MonoBehaviour
+public class PotholeManager 
 {
-	public GameObject roadEnvironment;
+	GridStructure grid;
+	RoadRepository roadRepository;
+	PlacementManager placementManager; 
+
+	int gridSize;
+
+	int potholeCount = 0;
+	Vector3Int potholeStatusCounter = new Vector3Int(0, 0, 0);
+
 	public float potholeSpawnTime = 20f;
 	public PotholeType[] holeTypes;
 	public GameObject roadObject;
-	
-	public Timer timer;
 
 	public CarSpawnManager carSpawnerManager;
 	public UIManager uiManager;
@@ -17,69 +23,72 @@ public class PotholeManager : MonoBehaviour
 
 	List<Road> roads;
 	List<Pothole> holes;
-	GameObject[] roadGrid;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-		holes = new List<Pothole>();
-		roads = new List<Road>();
+	public PotholeManager(int cellSize, int gridSize, RoadRepository roadRepository, PlacementManager placementManager)
+	{
+		//Set up parameters
+		this.grid = new GridStructure(cellSize, gridSize);
+		this.roadRepository = roadRepository;
+		this.gridSize = gridSize;
+		this.placementManager = placementManager;
 
-		roadEnvironment.GetComponentsInChildren<Road>(roads);
+		this.potholeCount = 0;
+		this.potholeStatusCounter = new Vector3Int(0, 0, 0);
 
-		roadGrid = new GameObject[roads.Count];
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-		//Time since the last pothole spawn
-		float potholeTime = gameManager.GetTime() - potholeSpawnTime * holes.Count;
-
-		if (potholeTime > potholeSpawnTime)
-		{
-			SpawnHole();
-		}
+		//Generate the city's road system
+		this.placementManager.GenerateCityRoads(grid, roadRepository);
 	}
 
-	void SpawnHole()
+	public float TimeSinceLastPothole(float time, float potholeSpawnTime)
 	{
-		//random numbers for the pothole
-		int index = GetRandomRoadIndex();
-		int sizeIndex = GetRandomPotholeTypeIndex();
+		return time - potholeCount * potholeSpawnTime;
+	}
 
-		//Helper for destroy and data access
-		Road roadObject = roads[index];
+	public GameObject SpawnPothole()
+	{
+		Vector2Int index = GetRandomRoadIndex();
+		GameObject potholePrefab = GetRandomSizedPotholePrefab();
+		GameObject potholeObject = placementManager.CreateRoadObject(index.x, index.y, grid, potholePrefab);
 
-		//creating the object
-		GameObject potholeObj = Instantiate(holeTypes[sizeIndex].prefab,roadObject.transform.position, roadObject.transform.rotation);
-		
-		potholeObj.transform.parent = roadObject.transform.parent;
-		potholeObj.AddComponent<Pothole>();
-		potholeObj.GetComponent<Pothole>().SetPothole(holeTypes[sizeIndex].repairTime, roads[index].traffic, sizeIndex, roadObject.transform.position);
-		potholeObj.transform.gameObject.tag = "Pothole";
+		//Remove road from grid
+		GameObject road = grid.GetRoadObjectFromGird(index.x, index.y);
+		placementManager.RemoveObject(road);
 
-		//Destroy the road object
-		Destroy(roads[index].gameObject);
-		//We need to use the object createed before, because the index now has another roadtile
-		roads.Remove(roadObject);
-		
-		//Add carSpawner to the spawnManager
-		CarSpawner carSpawner = new CarSpawner(potholeObj.transform, potholeObj.GetComponent<Pothole>().traffic);
-		carSpawnerManager.AddSpawner(carSpawner);
-		potholeObj.GetComponent<Pothole>().SetCarSpawner(carSpawner);
+		//Set new pothole to grid
+		grid.PlaceRoadToGrid(index.x, index.y, potholeObject, true);
 
-		//Add hole to the list
-		holes.Add(potholeObj.GetComponent<Pothole>());
+		potholeCount++;
+		potholeStatusCounter.x++;
 
-		//UI modifications (numbers and colors)
-		uiManager.AddPothole();
+		return potholeObject;
+
+		//TODO car spawner, UI
+	}
+
+
+	Vector2Int GetRandomRoadIndex()
+	{
+		Vector2Int index = new Vector2Int(Random.Range(0, gridSize), Random.Range(0, gridSize));
+
+		while(!grid.CanSpawnPothole(index.x, index.y))
+		{
+			index = new Vector2Int(Random.Range(0, gridSize), Random.Range(0, gridSize));
+		}
+
+		return index;
+	}
+
+	GameObject GetRandomSizedPotholePrefab()
+	{
+		int potholeIndex = Random.Range( 0, roadRepository.roadModelCollection.straightRoadPrefab.potholes.Length);
+
+		return roadRepository.roadModelCollection.straightRoadPrefab.potholes[potholeIndex].prefab;
 	}
 
 	public void FinishPothole(GameObject pothole)
 	{	
 		//Initializing road tile
-		GameObject road = Instantiate(roadObject, pothole.transform.position, pothole.transform.rotation);
+		GameObject road = GameObject.Instantiate(roadObject, pothole.transform.position, pothole.transform.rotation);
 		road.transform.parent = pothole.transform.parent;
 		road.AddComponent<Road>();
 		road.GetComponent<Road>().traffic = pothole.GetComponent<Pothole>().traffic;
@@ -95,7 +104,7 @@ public class PotholeManager : MonoBehaviour
 		uiManager.RepairPothole(workers);
 	}
 
-	int GetRandomRoadIndex()
+	int GetRandomRoadIndex2()
 	{
 		int index = Random.Range(0, roads.Count);
 
@@ -131,7 +140,7 @@ public class PotholeManager : MonoBehaviour
 
 		if(holeToShow != null)
 		{
-			CameraController cc = FindObjectOfType<CameraController>();
+			CameraController cc = GameObject.FindObjectOfType<CameraController>();
 			cc.MoveCameraToSpecificPosition(holeToShow.position);
 		}
 

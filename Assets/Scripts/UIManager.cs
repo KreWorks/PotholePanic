@@ -105,9 +105,9 @@ public class UIManager : MonoBehaviour
 	{
 		if(jobsButton.image.color == activeColor)
 		{
-			PotholeManager pm = FindObjectOfType<PotholeManager>();
+			/*PotholeManager pm = FindObjectOfType<PotholeManager>();
 
-			pm.ShowPothole();
+			pm.ShowPothole();*/
 		}
 		else
 		{

@@ -16,7 +16,13 @@ MonoBehaviour:
   prefab: {fileID: -927199367670048503, guid: 3d1378b01f3bf3d43bfb80a967aed8d9, type: 3}
   traffic: 3
   canHasPothole: 1
-  potholePrefab:
-  - {fileID: -927199367670048503, guid: a27282ba479662e469dc3bdd1ea2147f, type: 3}
-  - {fileID: -927199367670048503, guid: d220c3f28ac46f4419b76f66e418ccaf, type: 3}
-  - {fileID: -927199367670048503, guid: deef532b53b573947b34dd2ceb755c5d, type: 3}
+  potholes:
+  - prefab: {fileID: -927199367670048503, guid: a27282ba479662e469dc3bdd1ea2147f,
+      type: 3}
+    repairTime: 10
+  - prefab: {fileID: -927199367670048503, guid: d220c3f28ac46f4419b76f66e418ccaf,
+      type: 3}
+    repairTime: 12
+  - prefab: {fileID: -927199367670048503, guid: deef532b53b573947b34dd2ceb755c5d,
+      type: 3}
+    repairTime: 15

@@ -7,66 +7,60 @@ public class GameManager : MonoBehaviour
 	public PartOfTheDay[] dayParts;
 	public DifficultyLevel[] difficulties;
 
-	public UIManager uiManager;
+	public RoadRepository roadRepository;
+
+	public PlacementManager placementManager;
 	public PotholeManager potholeManager;
 
-	public RoadRepository roadRepository;
+	public UiController uiController; 
+	public UIManager uiManager;
+	public CarSpawnManager carSpawnManager;
 
 	public int oneHourTime;
 	public int startHour = 12;
+
+	public float potholeSpawnTime = 10f;
 
 	int difficulty;
 	int vehicleNumber;
 	int workerNumber;
 
-	CityGrid grid; 
+	public TimeManager timeManager;
 
-	float time; 
+	void Awake()
+	{
+		SetDifficultyParameters();
+	}
 
 	void Start()
 	{
 		Time.timeScale = 1;
-		difficulty = PlayerPrefs.GetInt("difficulty", 2);
 
-		foreach(DifficultyLevel diff in difficulties)
-		{
-			if (difficulty == diff.level)
-			{
-				vehicleNumber = diff.vehicleNumber;
-				workerNumber = diff.workerNumber;
-
-				break;
-			}
-		}
-
-		grid = new CityGrid(2, 9, roadRepository, this.potholeManager.roadEnvironment);
+		//Initialize
+		timeManager = new TimeManager(startHour, oneHourTime);
+		potholeManager = new PotholeManager(2, 9, roadRepository, placementManager);
 
 		uiManager.SetUIStart(workerNumber, vehicleNumber);
 	}
 
+	
 	void Update()
 	{
-		this.time += Time.deltaTime;
-	}
+		//Managing the time and the time UI
+		timeManager.TimePass(Time.deltaTime);
+		uiController.ChangeTimeText(timeManager.GenerateIngameTimeText());
+		uiController.ChangePicto(timeManager.GetHour());
 
-	public float GetTime()
-	{
-		return time;
-	}
-
-	public int GetHour()
-	{
-		return startHour + Mathf.FloorToInt(time / (float)oneHourTime);
-	}
-
-	public int GetMinute()
-	{
-		return Mathf.FloorToInt((time % (float)oneHourTime) * (60.0f / (float)oneHourTime)); 
+		//Managing pothole spawning
+		if (potholeManager.TimeSinceLastPothole(timeManager.GetTimeSinceStart(), potholeSpawnTime) >= potholeSpawnTime)
+		{
+			potholeManager.SpawnPothole();
+		}
 	}
 
 	public float GetPartOfTheDayMultiplier()
 	{
-		int hour = GetHour();
+		int hour = timeManager.GetHour();
 		foreach(PartOfTheDay dayTime in dayParts)
 		{
 			if (dayTime.IsValidMultiplier(hour))
@@ -82,7 +76,7 @@ public class GameManager : MonoBehaviour
 	{
 		Time.timeScale = 0;
 
-		int seconds = Mathf.FloorToInt(time );
+		int seconds = Mathf.FloorToInt(timeManager.GetTimeSinceStart());
 
 		uiManager.EndGame(seconds);
 	}
@@ -90,6 +84,22 @@ public class GameManager : MonoBehaviour
 	public Vector3 GetDifficultyNumbers()
 	{
 		return new Vector3(difficulty, workerNumber, vehicleNumber);
+	}
+
+	private void SetDifficultyParameters()
+	{
+		difficulty = PlayerPrefs.GetInt("difficulty", 2);
+
+		foreach (DifficultyLevel diff in difficulties)
+		{
+			if (difficulty == diff.level)
+			{
+				vehicleNumber = diff.vehicleNumber;
+				workerNumber = diff.workerNumber;
+
+				break;
+			}
+		}
 	}
 
 }

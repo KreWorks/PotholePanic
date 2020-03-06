@@ -61,8 +61,8 @@ public class Pothole : Road
 	{
 		this.status = PotholeStatus.Done;
 
-		PotholeManager phManager = FindObjectOfType<PotholeManager>();
+		/*PotholeManager phManager = FindObjectOfType<PotholeManager>();
 
-		phManager.FinishPothole(this.gameObject);
+		phManager.FinishPothole(this.gameObject);*/
 	}
 }

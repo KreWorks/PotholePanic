@@ -3,7 +3,7 @@
 public class Cell 
 {
 	GameObject road = null;
-	bool hasPothole  = false; 
+	bool hasPothole  = false;
 
 	public bool HasPothole { get => hasPothole; }
 
@@ -12,19 +12,18 @@ public class Cell
 		this.road = road; 
 	}
 
-	public void SpawnPothole(GameObject pothole)
+	public void SetRoadObject(GameObject roadObject, bool isPothole)
 	{
-		if (this.road != null)
+		if (IsRoad())
 		{
-			this.road = pothole;
-			this.hasPothole = true;
+			this.road = roadObject;
+			this.hasPothole = isPothole;
 		}
 	}
 
-	public void RepairPothole(GameObject road)
+	public GameObject GetRoadObject()
 	{
-		this.road = road;
-		this.hasPothole = false;
+		return road;
 	}
 
 	public bool IsRoad()
