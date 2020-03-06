@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class GameManager : MonoBehaviour
 {
@@ -11,6 +12,7 @@ public class GameManager : MonoBehaviour
 
 	public PlacementManager placementManager;
 	public PotholeManager potholeManager;
+	public TimeManager timeManager;
 
 	public UiController uiController; 
 	public UIManager uiManager;
@@ -22,14 +24,12 @@ public class GameManager : MonoBehaviour
 	public float potholeSpawnTime = 10f;
 
 	int difficulty;
-	int vehicleNumber;
 	int workerNumber;
-
-	public TimeManager timeManager;
 
 	void Awake()
 	{
 		SetDifficultyParameters();
+		uiController.InitWorkerIcons(workerNumber);
 	}
 
 	void Start()
@@ -40,7 +40,9 @@ public class GameManager : MonoBehaviour
 		timeManager = new TimeManager(startHour, oneHourTime);
 		potholeManager = new PotholeManager(2, 9, roadRepository, placementManager);
 
-		uiManager.SetUIStart(workerNumber, vehicleNumber);
+		potholeManager.AddListenerOnPotholeCountChangeEvent((potholeCount) => uiController.ChangePotholeCount(potholeCount));
+
+
 	}
 
 	
@@ -83,7 +85,7 @@ public class GameManager : MonoBehaviour
 
 	public Vector3 GetDifficultyNumbers()
 	{
-		return new Vector3(difficulty, workerNumber, vehicleNumber);
+		return new Vector3(difficulty, workerNumber, 0);
 	}
 
 	private void SetDifficultyParameters()
@@ -94,7 +96,6 @@ public class GameManager : MonoBehaviour
 		{
 			if (difficulty == diff.level)
 			{
-				vehicleNumber = diff.vehicleNumber;
 				workerNumber = diff.workerNumber;
 
 				break;

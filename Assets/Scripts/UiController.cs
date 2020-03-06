@@ -4,7 +4,9 @@ using TMPro;
 
 public class UiController : MonoBehaviour
 {
-	public GameObject timer;
+	[Header("Timer variables")]
+	public TMP_Text timeText;
+	public Image dayTimeIcon;
 
 	public Sprite sun;
 	public Sprite moon;
@@ -12,12 +14,35 @@ public class UiController : MonoBehaviour
 	public Color sunColor;
 	public Color moonColor;
 
-	TMP_Text timeText;
-	Image dayTimeIcon;
+	[Header("Pothole count variables")]
+	public TMP_Text potholeTodoCount;
+	public TMP_Text potholeInProgressCount;
+	public TMP_Text potholeDoneCount;
 
-	void Start()
+	[Header("Worker variables")]
+	public GameObject worker;
+	public GameObject workerIconPrefab;
+
+	public Color active;
+	public Color inactive;
+
+	UIHelper uiHelper; 
+
+	void Awake()
 	{
-		SetTimeUiElements();
+		uiHelper = new UIHelper(active, inactive);
+		ChangePotholeCount(new Vector3(0, 0, 0));
+	}
+
+	public void InitWorkerIcons(int workerCount)
+	{
+		uiHelper.InitWorkerIcons(workerCount, workerIconPrefab, worker);
+	}
+
+	public void ChangeWorkerColor(int availableWorker)
+	{
+		Image[] icons = worker.GetComponentsInChildren<Image>();
+		uiHelper.ChangeWorkerColor(availableWorker, icons);
 	}
 
 	public void ChangePicto(int hour)
@@ -39,9 +64,10 @@ public class UiController : MonoBehaviour
 		timeText.text = time;
 	}
 
-	private void SetTimeUiElements()
+
+	public void ChangePotholeCount(Vector3 potholeCounts)
 	{
-		timeText = timer.GetComponentInChildren<TextMeshProUGUI>();
-		dayTimeIcon = timer.GetComponentsInChildren<Image>()[1];
+		uiHelper.ChangePotholeCount(potholeCounts, potholeTodoCount, potholeInProgressCount, potholeDoneCount);
 	}
+
 }

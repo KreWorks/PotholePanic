@@ -47,17 +47,6 @@ public class UIManager : MonoBehaviour
 		}
 	}
 
-	public void SetUIStart(int workerCount, int carCount)
-	{
-		workerAvailableCount = workerCount;
-		workerWorkingCount = 0;
-
-		potholeTodoCount = 0;
-		potholeInprogressCount = 0;
-		potholeDoneCount = 0;
-
-		UpdateStatNumbers();
-	}
 
 	public void UpdateStatNumbers()
 	{
@@ -65,7 +54,7 @@ public class UIManager : MonoBehaviour
 		potholeInprogressText.text = potholeInprogressCount.ToString();
 		potholeDoneText.text = potholeDoneCount.ToString();
 
-		for(int i =0; i < workers.Length; i++)
+		/*for(int i =0; i < workers.Length; i++)
 		{
 			if(workers[i].color.a != 0)
 			{
@@ -83,7 +72,7 @@ public class UIManager : MonoBehaviour
 			{
 				workers[i].color = new Color (workers[i].color.r, workers[i].color.g, workers[i].color.b, 0);
 			}
-		}
+		}*/
 	}
 
 	public void AddPothole()

@@ -1,12 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class PotholeManager 
 {
 	GridStructure grid;
 	RoadRepository roadRepository;
-	PlacementManager placementManager; 
+	PlacementManager placementManager;
+
+	private Action<Vector3> OnPotholeCountChangeEvent;
 
 	int gridSize;
 
@@ -59,20 +62,23 @@ public class PotholeManager
 
 		potholeCount++;
 		potholeStatusCounter.x++;
+		OnPotholeCountChangeEvent?.Invoke(potholeStatusCounter);
 
 		return potholeObject;
 
-		//TODO car spawner, UI
+		//TODO car spawner
+		//TODO UI
+		//TODO add pothole component with parameters (solve time, status, etc)
 	}
 
 
 	Vector2Int GetRandomRoadIndex()
 	{
-		Vector2Int index = new Vector2Int(Random.Range(0, gridSize), Random.Range(0, gridSize));
+		Vector2Int index = new Vector2Int(Random(0, gridSize), Random(0, gridSize));
 
 		while(!grid.CanSpawnPothole(index.x, index.y))
 		{
-			index = new Vector2Int(Random.Range(0, gridSize), Random.Range(0, gridSize));
+			index = new Vector2Int(Random(0, gridSize), Random(0, gridSize));
 		}
 
 		return index;
@@ -80,9 +86,23 @@ public class PotholeManager
 
 	GameObject GetRandomSizedPotholePrefab()
 	{
-		int potholeIndex = Random.Range( 0, roadRepository.roadModelCollection.straightRoadPrefab.potholes.Length);
+		int potholeIndex = Random( 0, roadRepository.roadModelCollection.straightRoadPrefab.potholes.Length);
 
 		return roadRepository.roadModelCollection.straightRoadPrefab.potholes[potholeIndex].prefab;
+	}
+
+	int Random(int min, int max)
+	{
+		return UnityEngine.Random.Range(min,max);
+	}
+
+	public void AddListenerOnPotholeCountChangeEvent(Action<Vector3> listener)
+	{
+		OnPotholeCountChangeEvent += listener;
+	}
+	public void RemoveListenerOnPotholeCountChangeEvent(Action<Vector3> listener)
+	{
+		OnPotholeCountChangeEvent -= listener;
 	}
 
 	public void FinishPothole(GameObject pothole)
@@ -106,14 +126,14 @@ public class PotholeManager
 
 	int GetRandomRoadIndex2()
 	{
-		int index = Random.Range(0, roads.Count);
+		int index = Random(0, roads.Count);
 
 		return index; 
 	}
 
 	int GetRandomPotholeTypeIndex()
 	{
-		return Random.Range(0, holeTypes.Length);
+		return Random(0, holeTypes.Length);
 	}
 
 	public List<Pothole> GetHoles()
