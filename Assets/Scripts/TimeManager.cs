@@ -41,6 +41,31 @@ public class TimeManager
 		int hour = GetHour();
 		int minute = GetMinute(); 
 
+		return TimeFormatter(hour, minute);
+	}
+
+	public string GetTimeText()
+	{
+		string timeText = "";
+		int seconds = Mathf.FloorToInt(timeSpent);
+
+		if (seconds > 60)
+		{
+			timeText += Mathf.FloorToInt(seconds / 60.0f).ToString();
+			timeText += ":";
+			int secs = Mathf.FloorToInt(seconds % 60);
+			timeText += secs < 10 ? "0" + secs.ToString() : secs.ToString();
+		}
+		else
+		{
+			timeText += seconds.ToString() + " seconds";
+		}
+
+		return timeText;
+	}
+
+	public string TimeFormatter(int hour, int minute)
+	{
 		string timeText = hour < 10 ? "0" + hour.ToString() : hour.ToString();
 		timeText += ":";
 		timeText += minute < 10 ? "0" + minute.ToString() : minute.ToString();

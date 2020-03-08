@@ -6,7 +6,8 @@ public class PlacementManager : MonoBehaviour
 {
 	public Transform cityRoads;
 
-	//public RoadRepository roadRepository;
+	public GameObject repairParticlePrefab;
+	public GameObject carPrefab;
 
 	public void GenerateCityRoads(GridStructure grid, RoadRepository roadRepository)
 	{
@@ -53,6 +54,18 @@ public class PlacementManager : MonoBehaviour
 		roadObject.transform.name = roadPrefab.name + "(" + i + ", " + j + ")";
 		
 		return roadObject;
+	}
+
+	public GameObject CreateRepairParticleSystem(GameObject potholeObject)
+	{
+		GameObject repairParticle = Instantiate(repairParticlePrefab, potholeObject.transform);
+
+		return repairParticle;
+	}
+
+	public GameObject SpawnCar(Vector3 position, Quaternion rotation, Transform pothole)
+	{
+		return Instantiate(carPrefab,position, rotation, pothole);
 	}
 
 	public void RemoveObject(GameObject roadToRemove)

@@ -37,6 +37,7 @@ public class UIHelper
 			{
 				icon.color = inactiveColor;
 			}
+			index++;
 		}
 	}
 
@@ -45,5 +46,32 @@ public class UIHelper
 		potholeTodoCount.text = potholeCounts.x.ToString();
 		potholeInProgressCount.text = potholeCounts.y.ToString();
 		potholeDoneCount.text = potholeCounts.z.ToString();
+	}
+
+	public void SetPotholeTypeIcon(Image[] holes, PotholeSize holeType)
+	{
+		ResetPotholeTypeIcons(holes);
+
+		//Set t active the hole size
+		switch (holeType)
+		{
+			case PotholeSize.Small:
+				holes[0].color = activeColor;
+				break;
+			case PotholeSize.Medium:
+				holes[1].color = activeColor;
+				break;
+			case PotholeSize.Big:
+				holes[2].color = activeColor;
+				break;
+		}
+	}
+
+	public void ResetPotholeTypeIcons(Image[] icons)
+	{
+		foreach (Image icon in icons)
+		{
+			icon.color = inactiveColor;
+		}
 	}
 }

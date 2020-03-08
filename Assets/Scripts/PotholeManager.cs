@@ -17,6 +17,7 @@ public class PotholeManager
 	Vector3Int potholeStatusCounter = new Vector3Int(0, 0, 0);
 
 	public float potholeSpawnTime = 20f;
+	public float carSpawnTime = 15f;
 	public PotholeType[] holeTypes;
 	public GameObject roadObject;
 
@@ -24,7 +25,6 @@ public class PotholeManager
 	public UIManager uiManager;
 	public GameManager gameManager;
 
-	List<Road> roads;
 	List<Pothole> holes;
 
 	public PotholeManager(int cellSize, int gridSize, RoadRepository roadRepository, PlacementManager placementManager)
@@ -50,9 +50,14 @@ public class PotholeManager
 	public GameObject SpawnPothole()
 	{
 		Vector2Int index = GetRandomRoadIndex();
-		GameObject potholePrefab = GetRandomSizedPotholePrefab();
-		GameObject potholeObject = placementManager.CreateRoadObject(index.x, index.y, grid, potholePrefab);
+		PotholeType potholeType = GetRandomSizedPotholePrefab();
 
+		GameObject potholeObject = placementManager.CreateRoadObject(index.x, index.y, grid, potholeType.prefab);
+		potholeObject.transform.tag = "Pothole";
+
+		Pothole newPothole = potholeObject.AddComponent<Pothole>();
+		newPothole.SetPothole(this, potholeType.repairTime, potholeType.GetSize());
+		
 		//Remove road from grid
 		GameObject road = grid.GetRoadObjectFromGird(index.x, index.y);
 		placementManager.RemoveObject(road);
@@ -71,6 +76,10 @@ public class PotholeManager
 		//TODO add pothole component with parameters (solve time, status, etc)
 	}
 
+	public void PlaceCarNextPothole(Vector3 position, Quaternion rotation, Transform pothole)
+	{
+		placementManager.SpawnCar(position, rotation, pothole);
+	}
 
 	Vector2Int GetRandomRoadIndex()
 	{
@@ -84,11 +93,11 @@ public class PotholeManager
 		return index;
 	}
 
-	GameObject GetRandomSizedPotholePrefab()
+	PotholeType GetRandomSizedPotholePrefab()
 	{
-		int potholeIndex = Random( 0, roadRepository.roadModelCollection.straightRoadPrefab.potholes.Length);
+		int potholeIndex = Random(0, roadRepository.roadModelCollection.straightRoadPrefab.potholes.Length);
 
-		return roadRepository.roadModelCollection.straightRoadPrefab.potholes[potholeIndex].prefab;
+		return roadRepository.roadModelCollection.straightRoadPrefab.potholes[potholeIndex];
 	}
 
 	int Random(int min, int max)
@@ -111,10 +120,10 @@ public class PotholeManager
 		GameObject road = GameObject.Instantiate(roadObject, pothole.transform.position, pothole.transform.rotation);
 		road.transform.parent = pothole.transform.parent;
 		road.AddComponent<Road>();
-		road.GetComponent<Road>().traffic = pothole.GetComponent<Pothole>().traffic;
+		//road.GetComponent<Road>() = pothole.GetComponent<Pothole>();
 
 		//Remove the carSpawner from CarSpawnerManager
-		carSpawnerManager.RemoveSpawner(pothole.GetComponent<Pothole>().ownCarSpawner);
+		//carSpawnerManager.RemoveSpawner(pothole.GetComponent<Pothole>().ownCarSpawner);
 		int workers = pothole.GetComponent<Pothole>().assignedWorkers;
 		//Remove hole 
 		holes.Remove(pothole.GetComponent<Pothole>());
@@ -126,9 +135,9 @@ public class PotholeManager
 
 	int GetRandomRoadIndex2()
 	{
-		int index = Random(0, roads.Count);
+		//int index = Random(0, roads.Count);
 
-		return index; 
+		return 0; // index; 
 	}
 
 	int GetRandomPotholeTypeIndex()
@@ -161,7 +170,7 @@ public class PotholeManager
 		if(holeToShow != null)
 		{
 			CameraController cc = GameObject.FindObjectOfType<CameraController>();
-			cc.MoveCameraToSpecificPosition(holeToShow.position);
+			//cc.MoveCameraToSpecificPosition(holeToShow.position);
 		}
 
 	}

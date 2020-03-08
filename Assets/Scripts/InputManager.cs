@@ -4,9 +4,6 @@ using UnityEngine.EventSystems;
 
 public class InputManager : MonoBehaviour
 {
-	private Action<Vector3> OnPointerDownHandler;
-	private Action OnPointerUpHandler;
-
 
 	public string potholeTagName;
 	public string mainHouseTagName;

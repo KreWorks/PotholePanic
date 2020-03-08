@@ -8,6 +8,8 @@ public class GameManager : MonoBehaviour
 	public PartOfTheDay[] dayParts;
 	public DifficultyLevel[] difficulties;
 
+	private Action<int> OnWorkerCountChangeEvent;
+
 	public RoadRepository roadRepository;
 
 	public PlacementManager placementManager;
@@ -15,20 +17,28 @@ public class GameManager : MonoBehaviour
 	public TimeManager timeManager;
 
 	public UiController uiController; 
-	public UIManager uiManager;
-	public CarSpawnManager carSpawnManager;
+
 
 	public int oneHourTime;
 	public int startHour = 12;
 
 	public float potholeSpawnTime = 10f;
+	public int endGameCarCount = 5;
 
 	int difficulty;
 	int workerNumber;
+	int availableWorkers;
+
+	public int allWorkerCount { get => workerNumber; }
 
 	void Awake()
 	{
 		SetDifficultyParameters();
+
+		//Initialize
+		timeManager = new TimeManager(startHour, oneHourTime);
+		potholeManager = new PotholeManager(2, 9, roadRepository, placementManager);
+
 		uiController.InitWorkerIcons(workerNumber);
 	}
 
@@ -36,15 +46,25 @@ public class GameManager : MonoBehaviour
 	{
 		Time.timeScale = 1;
 
-		//Initialize
-		timeManager = new TimeManager(startHour, oneHourTime);
-		potholeManager = new PotholeManager(2, 9, roadRepository, placementManager);
-
 		potholeManager.AddListenerOnPotholeCountChangeEvent((potholeCount) => uiController.ChangePotholeCount(potholeCount));
-
-
+		AddListenerOnWorkerCountChangeEvent((workerCount) => uiController.ChangeWorkerColor(workerCount));
 	}
 
+	//Change worker count
+	public bool AssignWorkers(int workerCount)
+	{
+		if (availableWorkers >= workerCount && allWorkerCount >= (availableWorkers - workerCount))
+		{
+			availableWorkers -= workerCount;
+			//Notify others with the change
+			OnWorkerCountChangeEvent?.Invoke(availableWorkers);
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
 	
 	void Update()
 	{
@@ -74,13 +94,21 @@ public class GameManager : MonoBehaviour
 		return 1.0f;
 	}
 
+	public void CheckEndGame(int carCount)
+	{
+		if (carCount > endGameCarCount)
+		{
+			EndGame();
+		}
+	}
+
 	public void EndGame()
 	{
 		Time.timeScale = 0;
 
 		int seconds = Mathf.FloorToInt(timeManager.GetTimeSinceStart());
 
-		uiManager.EndGame(seconds);
+		uiController.EndGame(timeManager.GetTimeText());
 	}
 
 	public Vector3 GetDifficultyNumbers()
@@ -97,10 +125,20 @@ public class GameManager : MonoBehaviour
 			if (difficulty == diff.level)
 			{
 				workerNumber = diff.workerNumber;
+				availableWorkers = workerNumber;
 
 				break;
 			}
 		}
+	}
+
+	public void AddListenerOnWorkerCountChangeEvent(Action<int> listener)
+	{
+		OnWorkerCountChangeEvent += listener;
+	}
+	public void RemoveListenerOnWorkerCountChangeEvent(Action<int> listener)
+	{
+		OnWorkerCountChangeEvent -= listener;
 	}
 
 }

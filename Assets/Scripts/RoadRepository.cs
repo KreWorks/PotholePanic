@@ -5,6 +5,4 @@ using UnityEngine;
 public class RoadRepository : MonoBehaviour
 {
 	public RoadCollectionSO roadModelCollection;
-
-
 }

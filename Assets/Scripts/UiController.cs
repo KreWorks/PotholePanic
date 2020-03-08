@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 using TMPro;
 
 public class UiController : MonoBehaviour
@@ -25,6 +26,19 @@ public class UiController : MonoBehaviour
 
 	public Color active;
 	public Color inactive;
+
+	[Header("Panels")]
+	public GameObject overviewPanel;
+	public GameObject statusPanel;
+	public GameObject assignPanel;
+	public GameObject endGamePanel;
+
+	[Header("Other Controllers")]
+	public AssignWorkerController assignWorkerController;
+	public PotholeStatusController potholeStatusController;
+
+	[Header("Rest")]
+	public TMP_Text endGameText;
 
 	UIHelper uiHelper; 
 
@@ -64,10 +78,39 @@ public class UiController : MonoBehaviour
 		timeText.text = time;
 	}
 
-
 	public void ChangePotholeCount(Vector3 potholeCounts)
 	{
 		uiHelper.ChangePotholeCount(potholeCounts, potholeTodoCount, potholeInProgressCount, potholeDoneCount);
+	}
+
+	public void EndGame(string timeText)
+	{
+		endGamePanel.SetActive(true);
+
+		endGameText.text = "You have managed the Pothole Panic for " + timeText + ".";
+	}
+
+	public void OpenAssignPanel(Pothole hole)
+	{
+		assignPanel.SetActive(true);
+
+		assignWorkerController.SetParams(hole);
+	}
+
+	public void OpenStatusPanel(Pothole hole)
+	{
+		statusPanel.SetActive(true);
+		potholeStatusController.SetParams(hole);
+	}
+
+	public void ReturnToMenu()
+	{
+		SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 2);
+	}
+
+	public void QuitGame()
+	{
+		Application.Quit();
 	}
 
 }

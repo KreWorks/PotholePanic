@@ -138,9 +138,9 @@ public class UIManager : MonoBehaviour
 	{
 		PotholeStatusTab.SetActive(true);
 
-		PotholeStatusManager psm = PotholeStatusTab.GetComponent<PotholeStatusManager>();
+		//PotholeStatusManager psm = PotholeStatusTab.GetComponent<PotholeStatusManager>();
 
-		psm.SetParams(hole);
+		//psm.SetParams(hole);
 	}
 
 	public void ReturnToMenu()
@@ -168,10 +168,6 @@ public class UIManager : MonoBehaviour
 		endGameText.text = "You have managed the Pothole Panic for " + timeText + ".";
 	}
 
-	public void QuitGame()
-	{
-		Application.Quit();
-	}
 
 	public Vector3 GetWorkerCount()
 	{
