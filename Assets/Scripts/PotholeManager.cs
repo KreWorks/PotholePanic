@@ -10,24 +10,24 @@ public class PotholeManager
 	PlacementManager placementManager;
 
 	private Action<Vector3> OnPotholeCountChangeEvent;
+	private Action<int> OnAvailableWorkerChangeEvent;
 
 	int gridSize;
 
 	int potholeCount = 0;
 	Vector3Int potholeStatusCounter = new Vector3Int(0, 0, 0);
 
+	int workerCount;
+	int availableWorkerCount;
+
 	public float potholeSpawnTime = 20f;
 	public float carSpawnTime = 15f;
 	public PotholeType[] holeTypes;
 	public GameObject roadObject;
 
-	public CarSpawnManager carSpawnerManager;
-	public UIManager uiManager;
 	public GameManager gameManager;
 
-	List<Pothole> holes;
-
-	public PotholeManager(int cellSize, int gridSize, RoadRepository roadRepository, PlacementManager placementManager)
+	public PotholeManager(int cellSize, int gridSize, RoadRepository roadRepository, PlacementManager placementManager, int workerCount)
 	{
 		//Set up parameters
 		this.grid = new GridStructure(cellSize, gridSize);
@@ -37,6 +37,9 @@ public class PotholeManager
 
 		this.potholeCount = 0;
 		this.potholeStatusCounter = new Vector3Int(0, 0, 0);
+
+		this.workerCount = workerCount;
+		this.availableWorkerCount = workerCount;
 
 		//Generate the city's road system
 		this.placementManager.GenerateCityRoads(grid, roadRepository);
@@ -53,7 +56,9 @@ public class PotholeManager
 		PotholeType potholeType = GetRandomSizedPotholePrefab();
 
 		GameObject potholeObject = placementManager.CreateRoadObject(index.x, index.y, grid, potholeType.prefab);
+		placementManager.AddIndicatorToPothole(potholeObject);
 		potholeObject.transform.tag = "Pothole";
+		potholeObject.name = "Pothole (" + index.x + ", " + index.y + ")";
 
 		Pothole newPothole = potholeObject.AddComponent<Pothole>();
 		newPothole.SetPothole(this, potholeType.repairTime, potholeType.GetSize());
@@ -65,15 +70,69 @@ public class PotholeManager
 		//Set new pothole to grid
 		grid.PlaceRoadToGrid(index.x, index.y, potholeObject, true);
 
+		//Change numbers
 		potholeCount++;
-		potholeStatusCounter.x++;
-		OnPotholeCountChangeEvent?.Invoke(potholeStatusCounter);
+		ChangePotholeCount(new Vector3Int(1, 0, 0));
 
 		return potholeObject;
+	}
 
-		//TODO car spawner
-		//TODO UI
-		//TODO add pothole component with parameters (solve time, status, etc)
+	public void StartRepairPothole(Pothole pothole, int workerCount)
+	{
+		Vector2Int gridIndex = grid.GetGridIndexByPosition(pothole.transform.position);
+		GameObject gridObject = grid.GetRoadObjectFromGird(gridIndex.x, gridIndex.y);
+
+		if (gridObject.GetComponent<Pothole>() == pothole)
+		{
+			//Remove indicator
+			GameObject indicator = pothole.gameObject.GetComponentInChildren<IconController>().gameObject;
+			placementManager.RemoveObject(indicator);
+
+			//Add canvas and particle system
+			GameObject canvas = placementManager.AddSliderIconToPothole(pothole.gameObject);
+			canvas.GetComponent<SliderController>().SetSolveTime(pothole.repairTime);
+
+			GameObject repairParticle = placementManager.AddParticleSystemToPothole(pothole.gameObject);
+
+			//Change numbers
+			ChangePotholeCount(new Vector3Int(-1, 1, 0));
+			ChangeAvailableWorker(-workerCount);
+		}
+	}
+
+	public void FinishPothole(Pothole pothole, int workerCount)
+	{
+		Vector2Int gridIndex = grid.GetGridIndexByPosition(pothole.transform.position);
+		GameObject potholeObject = grid.GetRoadObjectFromGird(gridIndex.x, gridIndex.y);
+
+		if (potholeObject.GetComponent<Pothole>() == pothole)
+		{
+			//Create road
+			GameObject roadObject = placementManager.CreateRoadObject(gridIndex.x, gridIndex.y, grid, roadRepository.roadModelCollection.straightRoadPrefab.prefab);
+
+			//Remove Pothole from grid
+			placementManager.RemoveObject(potholeObject);
+
+			//Set the road to the grid
+			grid.PlaceRoadToGrid(gridIndex.x, gridIndex.y, roadObject, false);
+
+			//Change numbers
+			ChangePotholeCount(new Vector3Int(0, -1, 1));
+			ChangeAvailableWorker(workerCount);
+		}
+	}
+
+	void ChangePotholeCount(Vector3Int change)
+	{
+		potholeStatusCounter = potholeStatusCounter + change;
+
+		OnPotholeCountChangeEvent?.Invoke(potholeStatusCounter);
+	}
+
+	void ChangeAvailableWorker(int change)
+	{
+		availableWorkerCount += change;
+		OnAvailableWorkerChangeEvent?.Invoke(availableWorkerCount);
 	}
 
 	public void PlaceCarNextPothole(Vector3 position, Quaternion rotation, Transform pothole)
@@ -114,43 +173,16 @@ public class PotholeManager
 		OnPotholeCountChangeEvent -= listener;
 	}
 
-	public void FinishPothole(GameObject pothole)
-	{	
-		//Initializing road tile
-		GameObject road = GameObject.Instantiate(roadObject, pothole.transform.position, pothole.transform.rotation);
-		road.transform.parent = pothole.transform.parent;
-		road.AddComponent<Road>();
-		//road.GetComponent<Road>() = pothole.GetComponent<Pothole>();
-
-		//Remove the carSpawner from CarSpawnerManager
-		//carSpawnerManager.RemoveSpawner(pothole.GetComponent<Pothole>().ownCarSpawner);
-		int workers = pothole.GetComponent<Pothole>().assignedWorkers;
-		//Remove hole 
-		holes.Remove(pothole.GetComponent<Pothole>());
-		GameObject.Destroy(pothole);
-
-		//UI modifications (numbers and colors)
-		uiManager.RepairPothole(workers);
-	}
-
-	int GetRandomRoadIndex2()
+	public void AddListenerOnAvailableWorkerChangeEvent(Action<int> listener)
 	{
-		//int index = Random(0, roads.Count);
-
-		return 0; // index; 
+		OnAvailableWorkerChangeEvent += listener;
 	}
-
-	int GetRandomPotholeTypeIndex()
+	public void RemoveListenerOnAvailableWorkerChangeEvent(Action<int> listener)
 	{
-		return Random(0, holeTypes.Length);
+		OnAvailableWorkerChangeEvent -= listener;
 	}
 
-	public List<Pothole> GetHoles()
-	{
-		return this.holes;
-	}
-
-	Pothole GetTodoPothole()
+	/*Pothole GetTodoPothole()
 	{
 		foreach(Pothole hole in holes)
 		{
@@ -173,6 +205,6 @@ public class PotholeManager
 			//cc.MoveCameraToSpecificPosition(holeToShow.position);
 		}
 
-	}
+	}*/
 }
 

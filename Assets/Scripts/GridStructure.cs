@@ -25,6 +25,19 @@ public class GridStructure
 		}
 	}
 
+	public Vector2Int GetGridIndexByPosition(Vector3 position)
+	{
+		//Position the bottom left to 0,0
+		position = position + ((gridSize - 1) / 2.0f) * new Vector3(cellSize, 0, cellSize);
+
+		return new Vector2Int((int) (position.x / cellSize), (int)(position.z / cellSize));
+	}
+
+	public Vector3 GetPositionByGridIndex(Vector2Int gridIndex)
+	{
+		return new Vector3(gridIndex.x * cellSize, 0, gridIndex.y * cellSize) - ((gridSize - 1) / 2.0f) * new Vector3(cellSize, 0, cellSize);
+	}
+
 	public int GetGridLength(int dimension)
 	{
 		return grid.GetLength(dimension);

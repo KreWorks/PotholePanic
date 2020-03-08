@@ -12,6 +12,7 @@ public class Pothole : MonoBehaviour
 
 	public GameManager gameManager;
 	public PotholeManager potholeManager;
+	public SliderController sliderController;
 
 	public float repairTime;
 	public float progress = 0.0f;
@@ -52,6 +53,8 @@ public class Pothole : MonoBehaviour
 		if (this.status == PotholeStatus.InProgress)
 		{
 			progress += ((assignedWorkers + 1.0f) / 2.0f) * Time.deltaTime;
+			sliderController.SetProgressTime(progress);
+
 			if (progress >= repairTime)
 			{
 				FinishPothole();
@@ -100,7 +103,9 @@ public class Pothole : MonoBehaviour
 	{
 		this.status = PotholeStatus.InProgress;
 		this.assignedWorkers = workerCount;
-		gameManager.AssignWorkers(workerCount);
+
+		potholeManager.StartRepairPothole(this, workerCount);
+		sliderController = GetComponentInChildren<SliderController>();
 	}
 	
 
@@ -108,8 +113,6 @@ public class Pothole : MonoBehaviour
 	{
 		this.status = PotholeStatus.Done;
 
-		/*PotholeManager phManager = FindObjectOfType<PotholeManager>();
-
-		phManager.FinishPothole(this.gameObject);*/
+		potholeManager.FinishPothole(this, this.assignedWorkers);
 	}
 }

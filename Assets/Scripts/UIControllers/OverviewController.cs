@@ -24,20 +24,17 @@ public class OverviewController : MonoBehaviour
 		ChangePotholeCount(new Vector3(0, 0, 0));
 	}
 
-	void Start()
-	{
-		GameManager gameManager = FindObjectOfType<GameManager>();
-		if (gameManager != null)
-		{
-			InitWorkerIcons(gameManager.allWorkerCount);
-			gameManager.potholeManager.AddListenerOnPotholeCountChangeEvent((potholeCount) => ChangePotholeCount(potholeCount));
-			gameManager.AddListenerOnWorkerCountChangeEvent((workerCount) => ChangeWorkerColor(workerCount));
-		}
-	}
-
 	public void InitWorkerIcons(int workerCount)
 	{
-		uiHelper.InitWorkerIcons(workerCount, workerIconPrefab, workers);
+		if(uiHelper != null)
+		{
+			uiHelper.InitWorkerIcons(workerCount, workerIconPrefab, workers);
+		}
+		else
+		{
+			Debug.Log("uiHelper is null");
+		}
+		
 	}
 
 	public void ChangeWorkerColor(int availableWorker)

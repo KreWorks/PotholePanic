@@ -15,7 +15,7 @@ public class PotholeStatusController : MonoBehaviour
 	Pothole hole;
 
 	// Start is called before the first frame update
-	void Start()
+	void Awake()
     {
 		uiHelper = new UIHelper(activeColor, inactiveColor);
 	}

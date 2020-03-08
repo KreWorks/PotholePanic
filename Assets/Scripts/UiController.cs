@@ -36,6 +36,7 @@ public class UiController : MonoBehaviour
 	[Header("Other Controllers")]
 	public AssignWorkerController assignWorkerController;
 	public PotholeStatusController potholeStatusController;
+	public OverviewController overviewController;
 
 	[Header("Rest")]
 	public TMP_Text endGameText;
@@ -46,6 +47,13 @@ public class UiController : MonoBehaviour
 	{
 		uiHelper = new UIHelper(active, inactive);
 		ChangePotholeCount(new Vector3(0, 0, 0));
+	}
+
+	void Start()
+	{
+		assignPanel.SetActive(false);
+		statusPanel.SetActive(false);
+		overviewPanel.SetActive(false);
 	}
 
 	public void InitWorkerIcons(int workerCount)
@@ -112,5 +120,20 @@ public class UiController : MonoBehaviour
 	{
 		Application.Quit();
 	}
+	/*
+	public void ToggleAudio()
+	{
+		if (backgroundMusic.volume == 0.6f)
+		{
+			backgroundMusic.volume = 0;
+			toggleAudioButton.image.sprite = AudioOff;
+		}
+		else
+		{
+			backgroundMusic.volume = 0.6f;
+			toggleAudioButton.image.sprite = AudioOn;
+		}
 
+	}
+	*/
 }

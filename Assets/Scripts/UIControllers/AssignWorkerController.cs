@@ -40,9 +40,10 @@ public class AssignWorkerController : MonoBehaviour
 
 	public void AssignWorker()
 	{
-		GameManager gameManager = FindObjectOfType<GameManager>();
-
-
+		int workerCount = CountSelectedWorkers();
+		
+		// TODO Check if you can assign workers
+		pothole.StartSolvePothole(workerCount);
 	}
 
 	int CountSelectedWorkers()

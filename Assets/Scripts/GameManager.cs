@@ -8,7 +8,7 @@ public class GameManager : MonoBehaviour
 	public PartOfTheDay[] dayParts;
 	public DifficultyLevel[] difficulties;
 
-	private Action<int> OnWorkerCountChangeEvent;
+	private Action<int> OnWorkerCountInitEvent;
 
 	public RoadRepository roadRepository;
 
@@ -18,7 +18,6 @@ public class GameManager : MonoBehaviour
 
 	public UiController uiController; 
 
-
 	public int oneHourTime;
 	public int startHour = 12;
 
@@ -27,45 +26,34 @@ public class GameManager : MonoBehaviour
 
 	int difficulty;
 	int workerNumber;
-	int availableWorkers;
-
-	public int allWorkerCount { get => workerNumber; }
 
 	void Awake()
 	{
-		SetDifficultyParameters();
-
+		//Set params
+		SetWorkerCountByDifficulty();
 		//Initialize
 		timeManager = new TimeManager(startHour, oneHourTime);
-		potholeManager = new PotholeManager(2, 9, roadRepository, placementManager);
-
-		uiController.InitWorkerIcons(workerNumber);
+		potholeManager = new PotholeManager(2, 9, roadRepository, placementManager, workerNumber);
 	}
 
 	void Start()
 	{
 		Time.timeScale = 1;
 
+		//Subscribers
+		//Worker count init
+		AddListenerOnWorkerCountInitEvent((workerCount) => uiController.InitWorkerIcons(workerCount));
+		AddListenerOnWorkerCountInitEvent((workerCount) => uiController.overviewController.InitWorkerIcons(workerCount));
+		//Available worker count change
+		potholeManager.AddListenerOnAvailableWorkerChangeEvent((workerCount) => uiController.ChangeWorkerColor(workerCount));
+		potholeManager.AddListenerOnAvailableWorkerChangeEvent((workerCount) => uiController.overviewController.ChangeWorkerColor(workerCount));
+		//Pothole counter change
 		potholeManager.AddListenerOnPotholeCountChangeEvent((potholeCount) => uiController.ChangePotholeCount(potholeCount));
-		AddListenerOnWorkerCountChangeEvent((workerCount) => uiController.ChangeWorkerColor(workerCount));
+		potholeManager.AddListenerOnPotholeCountChangeEvent((potholeCount) => uiController.overviewController.ChangePotholeCount(potholeCount));
+
+		OnWorkerCountInitEvent?.Invoke(workerNumber);
 	}
 
-	//Change worker count
-	public bool AssignWorkers(int workerCount)
-	{
-		if (availableWorkers >= workerCount && allWorkerCount >= (availableWorkers - workerCount))
-		{
-			availableWorkers -= workerCount;
-			//Notify others with the change
-			OnWorkerCountChangeEvent?.Invoke(availableWorkers);
-			return true;
-		}
-		else
-		{
-			return false;
-		}
-	}
-	
 	void Update()
 	{
 		//Managing the time and the time UI
@@ -111,34 +99,26 @@ public class GameManager : MonoBehaviour
 		uiController.EndGame(timeManager.GetTimeText());
 	}
 
-	public Vector3 GetDifficultyNumbers()
+	private void SetWorkerCountByDifficulty()
 	{
-		return new Vector3(difficulty, workerNumber, 0);
-	}
-
-	private void SetDifficultyParameters()
-	{
-		difficulty = PlayerPrefs.GetInt("difficulty", 2);
+		this.difficulty = PlayerPrefs.GetInt("difficulty", 2);
 
 		foreach (DifficultyLevel diff in difficulties)
 		{
 			if (difficulty == diff.level)
 			{
 				workerNumber = diff.workerNumber;
-				availableWorkers = workerNumber;
-
-				break;
 			}
 		}
 	}
 
-	public void AddListenerOnWorkerCountChangeEvent(Action<int> listener)
+	public void AddListenerOnWorkerCountInitEvent(Action<int> listener)
 	{
-		OnWorkerCountChangeEvent += listener;
+		OnWorkerCountInitEvent += listener;
 	}
-	public void RemoveListenerOnWorkerCountChangeEvent(Action<int> listener)
+	public void RemoveListenerOnWorkerCountInitEvent(Action<int> listener)
 	{
-		OnWorkerCountChangeEvent -= listener;
+		OnWorkerCountInitEvent -= listener;
 	}
 
 }

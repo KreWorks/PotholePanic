@@ -6,8 +6,11 @@ public class PlacementManager : MonoBehaviour
 {
 	public Transform cityRoads;
 
+	public GameObject potholeIndicatorPrefab;
 	public GameObject repairParticlePrefab;
+	public GameObject sliderIcon;
 	public GameObject carPrefab;
+	
 
 	public void GenerateCityRoads(GridStructure grid, RoadRepository roadRepository)
 	{
@@ -61,6 +64,27 @@ public class PlacementManager : MonoBehaviour
 		GameObject repairParticle = Instantiate(repairParticlePrefab, potholeObject.transform);
 
 		return repairParticle;
+	}
+
+	public GameObject AddIndicatorToPothole(GameObject pothole)
+	{
+		return Instantiate(potholeIndicatorPrefab, pothole.transform.position + new Vector3(0, 1.5f, 0), Quaternion.identity, pothole.transform);
+	}
+
+	public GameObject AddSliderIconToPothole(GameObject pothole)
+	{
+		GameObject sliderIconObject = Instantiate(sliderIcon, pothole.transform);
+
+		sliderIconObject.GetComponent<SliderController>().cam = Camera.main.transform;
+
+		return sliderIconObject;
+	}
+
+	public GameObject AddParticleSystemToPothole(GameObject pothole)
+	{
+		GameObject repairParticleObject = Instantiate(repairParticlePrefab, pothole.transform);
+
+		return repairParticleObject;
 	}
 
 	public GameObject SpawnCar(Vector3 position, Quaternion rotation, Transform pothole)
