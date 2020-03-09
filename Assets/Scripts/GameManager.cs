@@ -103,7 +103,7 @@ public class GameManager : MonoBehaviour
 
 	private void SetWorkerCountByDifficulty()
 	{
-		this.difficulty = PlayerPrefs.GetInt("difficulty", 2);
+		this.difficulty = PlayerPrefs.GetInt("game_difficulty", 2);
 
 		foreach (DifficultyLevel diff in difficulties)
 		{

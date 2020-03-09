@@ -55,6 +55,7 @@ public class MenuManager : MonoBehaviour
 	public void StartGameButton()
 	{
 		PlayerPrefs.SetInt("game_difficulty", difficulty);
+		Debug.Log(difficulty);
 
 		SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 2);
 
