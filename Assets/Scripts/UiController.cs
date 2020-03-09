@@ -41,6 +41,11 @@ public class UiController : MonoBehaviour
 	[Header("Rest")]
 	public TMP_Text endGameText;
 
+	public Button audioOnOffBtn;
+	public Sprite AudioOn;
+	public Sprite AudioOff;
+	public AudioSource backgroundMusic;
+
 	UIHelper uiHelper; 
 
 	void Awake()
@@ -120,20 +125,33 @@ public class UiController : MonoBehaviour
 	{
 		Application.Quit();
 	}
-	/*
+	
 	public void ToggleAudio()
 	{
 		if (backgroundMusic.volume == 0.6f)
 		{
 			backgroundMusic.volume = 0;
-			toggleAudioButton.image.sprite = AudioOff;
+			audioOnOffBtn.image.sprite = AudioOff;
 		}
 		else
 		{
 			backgroundMusic.volume = 0.6f;
-			toggleAudioButton.image.sprite = AudioOn;
+			audioOnOffBtn.image.sprite = AudioOn;
 		}
-
 	}
-	*/
+
+	public void PotholeIconClicked()
+	{
+		int todoPotholeCount = int.Parse(potholeTodoCount.text);
+		
+		//if(todoPotholeCount == 0)
+		{
+			overviewPanel.SetActive(true);
+		}
+		//else
+		{
+			//Debug.Log("Show pothole");
+		}
+	}
+	
 }

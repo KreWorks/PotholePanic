@@ -19,11 +19,13 @@ public class Pothole : MonoBehaviour
 	public int assignedWorkers;
 
 	float timeSinceSpawn;
+	float carSpawnTime;
 	int carCount;
 
 	public void SetPothole(PotholeManager potholeManager, float repairTime, PotholeSize potholeSize)
 	{
 		this.gameManager = FindObjectOfType<GameManager>();
+		this.carSpawnTime = gameManager.carSpawnTime;
 		this.potholeManager = potholeManager;
 		this.repairTime = repairTime;
 		this.size = potholeSize;
@@ -64,7 +66,7 @@ public class Pothole : MonoBehaviour
 
 	void HandleCarSpawn()
 	{
-		if(potholeManager.carSpawnTime <= (timeSinceSpawn - carCount * potholeManager.carSpawnTime))
+		if(carSpawnTime <= (timeSinceSpawn - carCount * carSpawnTime))
 		{
 			SpawnCar();
 		}

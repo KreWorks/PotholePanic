@@ -22,6 +22,7 @@ public class GameManager : MonoBehaviour
 	public int startHour = 12;
 
 	public float potholeSpawnTime = 10f;
+	public float carSpawnTime = 8f;
 	public int endGameCarCount = 5;
 
 	int difficulty;
@@ -47,6 +48,7 @@ public class GameManager : MonoBehaviour
 		//Available worker count change
 		potholeManager.AddListenerOnAvailableWorkerChangeEvent((workerCount) => uiController.ChangeWorkerColor(workerCount));
 		potholeManager.AddListenerOnAvailableWorkerChangeEvent((workerCount) => uiController.overviewController.ChangeWorkerColor(workerCount));
+		potholeManager.AddListenerOnAvailableWorkerChangeEvent((workerCount) => uiController.assignWorkerController.DisableWorkers(workerCount));
 		//Pothole counter change
 		potholeManager.AddListenerOnPotholeCountChangeEvent((potholeCount) => uiController.ChangePotholeCount(potholeCount));
 		potholeManager.AddListenerOnPotholeCountChangeEvent((potholeCount) => uiController.overviewController.ChangePotholeCount(potholeCount));
@@ -84,7 +86,7 @@ public class GameManager : MonoBehaviour
 
 	public void CheckEndGame(int carCount)
 	{
-		if (carCount > endGameCarCount)
+		if (carCount >= endGameCarCount)
 		{
 			EndGame();
 		}

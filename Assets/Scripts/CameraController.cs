@@ -47,7 +47,7 @@ public class CameraController : MonoBehaviour
 
 	void PanCamera()
 	{
-		float moveSpeedLocal = Time.deltaTime * moveSpeed / 3.0f;
+		float moveSpeedLocal = 0 *Time.deltaTime * moveSpeed / 3.0f;
 		if (Input.mousePosition.x > screenWidth - screenBoundary)
 		{
 			//Move camera

@@ -20,13 +20,6 @@ public class PotholeManager
 	int workerCount;
 	int availableWorkerCount;
 
-	public float potholeSpawnTime = 20f;
-	public float carSpawnTime = 15f;
-	public PotholeType[] holeTypes;
-	public GameObject roadObject;
-
-	public GameManager gameManager;
-
 	public PotholeManager(int cellSize, int gridSize, RoadRepository roadRepository, PlacementManager placementManager, int workerCount)
 	{
 		//Set up parameters

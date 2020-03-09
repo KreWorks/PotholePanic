@@ -1598,8 +1598,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_MethodName: OverviewTab
+      - m_Target: {fileID: 1688983452}
+        m_MethodName: PotholeIconClicked
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -4019,7 +4019,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.28627452, g: 0.28627452, b: 0.28627452, a: 1}
+  m_Color: {r: 0.96862745, g: 0.8666667, b: 0.4, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -4550,7 +4550,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.28627452, g: 0.28627452, b: 0.28627452, a: 1}
+  m_Color: {r: 0.96862745, g: 0.8666667, b: 0.4, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -5888,7 +5888,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.28627452, g: 0.28627452, b: 0.28627452, a: 1}
+  m_Color: {r: 0.96862745, g: 0.8666667, b: 0.4, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -7529,7 +7529,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.28627452, g: 0.28627452, b: 0.28627452, a: 1}
+  m_Color: {r: 0.96862745, g: 0.8666667, b: 0.4, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -10748,7 +10748,7 @@ MonoBehaviour:
     type: 3}
   repairParticlePrefab: {fileID: 2687761395889316441, guid: cfa451519b05431409eccd6df6dc4206,
     type: 3}
-  sliderIcon: {fileID: 1089112836663386182, guid: 92f626f2925b8ac40983184a5b112ae2,
+  sliderIcon: {fileID: 5281618305363987875, guid: 1e13c3ac9f4ada54d99e8223b1dc3b4c,
     type: 3}
   carPrefab: {fileID: 3893620207696398506, guid: 22911afe456fe8c43b55f6999a1d1b31,
     type: 3}
@@ -12243,6 +12243,10 @@ MonoBehaviour:
   potholeStatusController: {fileID: 298316246}
   overviewController: {fileID: 1368958448}
   endGameText: {fileID: 1038023001}
+  audioOnOffBtn: {fileID: 2131977833}
+  AudioOn: {fileID: 21300000, guid: 986eb0ea6b497b3488b05398f6a63420, type: 3}
+  AudioOff: {fileID: 21300000, guid: 591b6e712d4deb34bae399d588d00bea, type: 3}
+  backgroundMusic: {fileID: 1645680007}
 --- !u!4 &1688983453
 Transform:
   m_ObjectHideFlags: 0
@@ -12846,7 +12850,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1688983452}
         m_MethodName: QuitGame
         m_Mode: 1
         m_Arguments:
@@ -15130,7 +15134,8 @@ MonoBehaviour:
   uiController: {fileID: 1688983452}
   oneHourTime: 20
   startHour: 12
-  potholeSpawnTime: 10
+  potholeSpawnTime: 7
+  carSpawnTime: 5
   endGameCarCount: 5
 --- !u!4 &2042350914
 Transform:
@@ -16156,7 +16161,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1688983452}
         m_MethodName: ToggleAudio
         m_Mode: 1
         m_Arguments:

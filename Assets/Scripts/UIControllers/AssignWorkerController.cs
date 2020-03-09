@@ -27,8 +27,6 @@ public class AssignWorkerController : MonoBehaviour
 
 		Image[] workers = workersPanel.GetComponentsInChildren<Image>();
 		uiHelper.ChangeWorkerColor(0, workers);
-
-		//TODO need to subscribe for some event to update availableWorkers
 	}
 
 	public void SelectWorkers(int count)
@@ -38,12 +36,37 @@ public class AssignWorkerController : MonoBehaviour
 		uiHelper.ChangeWorkerColor(count, workers);
 	}
 
+	public void DisableWorkers(int count)
+	{
+		if (count <= 3)
+		{
+			Image[] workers = workersPanel.GetComponentsInChildren<Image>(true);
+			int index = 0; 
+			foreach(Image workerIcon in workers)
+			{
+				if (index < count)
+				{
+					workerIcon.gameObject.SetActive(true);
+					workerIcon.color = inactiveColor;
+				}
+				else
+				{
+					workerIcon.gameObject.SetActive(false);
+				}
+				index++;
+			}
+		}
+	}
+
 	public void AssignWorker()
 	{
 		int workerCount = CountSelectedWorkers();
+
+		if(workerCount > 0)
+		{
+			pothole.StartSolvePothole(workerCount);
+		}
 		
-		// TODO Check if you can assign workers
-		pothole.StartSolvePothole(workerCount);
 	}
 
 	int CountSelectedWorkers()
@@ -61,4 +84,6 @@ public class AssignWorkerController : MonoBehaviour
 
 		return counter;
 	}
+
+
 }

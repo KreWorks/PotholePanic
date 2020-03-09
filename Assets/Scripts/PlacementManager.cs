@@ -68,12 +68,20 @@ public class PlacementManager : MonoBehaviour
 
 	public GameObject AddIndicatorToPothole(GameObject pothole)
 	{
-		return Instantiate(potholeIndicatorPrefab, pothole.transform.position + new Vector3(0, 1.5f, 0), Quaternion.identity, pothole.transform);
+		GameObject indicator = Instantiate(potholeIndicatorPrefab, pothole.transform.position + new Vector3(0, 1.5f, 0), Quaternion.identity, pothole.transform);
+
+		MeshRenderer[] parts = indicator.GetComponentsInChildren<MeshRenderer>();
+		foreach (MeshRenderer mr in parts)
+		{
+			mr.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
+		}
+
+		return indicator;
 	}
 
 	public GameObject AddSliderIconToPothole(GameObject pothole)
 	{
-		GameObject sliderIconObject = Instantiate(sliderIcon, pothole.transform);
+		GameObject sliderIconObject = Instantiate(sliderIcon, pothole.transform.position + new Vector3(0, 2f, 0), Quaternion.identity, pothole.transform);
 
 		sliderIconObject.GetComponent<SliderController>().cam = Camera.main.transform;
 
@@ -97,15 +105,4 @@ public class PlacementManager : MonoBehaviour
 		Destroy(roadToRemove);
 	}
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

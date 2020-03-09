@@ -26,6 +26,11 @@ public class UIHelper
 
 	public void ChangeWorkerColor(int availableWorker, Image[] icons)
 	{
+		ChangeWorkerColor(availableWorker, icons, activeColor, inactiveColor);
+	}
+
+	public void ChangeWorkerColor(int availableWorker, Image[] icons, Color activeColor, Color inactiveColor)
+	{
 		int index = 0;
 		foreach (Image icon in icons)
 		{
