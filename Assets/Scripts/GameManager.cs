@@ -11,6 +11,7 @@ public class GameManager : MonoBehaviour
 	private Action<int> OnWorkerCountInitEvent;
 
 	public RoadRepository roadRepository;
+	public GameObject roads; 
 
 	public PlacementManager placementManager;
 	public PotholeManager potholeManager;
@@ -40,6 +41,7 @@ public class GameManager : MonoBehaviour
 	void Start()
 	{
 		Time.timeScale = 1;
+		GridStructure grid = new GridStructure(2, 9);
 
 		//Subscribers
 		//Worker count init

@@ -68,7 +68,7 @@ public class PlacementManager : MonoBehaviour
 
 	public GameObject AddIndicatorToPothole(GameObject pothole)
 	{
-		GameObject indicator = Instantiate(potholeIndicatorPrefab, pothole.transform.position + new Vector3(0, 1.5f, 0), Quaternion.identity, pothole.transform);
+		GameObject indicator = Instantiate(potholeIndicatorPrefab, pothole.transform.position + new Vector3(0, 2.5f, 0), Quaternion.identity, pothole.transform);
 
 		MeshRenderer[] parts = indicator.GetComponentsInChildren<MeshRenderer>();
 		foreach (MeshRenderer mr in parts)
