@@ -28,14 +28,31 @@ public class PotholeManager
 		this.gridSize = gridSize;
 		this.placementManager = placementManager;
 
+		SetCounters(workerCount);
+
+		//Generate the city's road system
+		this.placementManager.GenerateCityRoads(grid, roadRepository);
+	}
+
+	public PotholeManager(GridStructure grid, RoadRepository roadRepository, PlacementManager placementManager, int workerCount)
+	{
+		//Set up parameters
+		this.grid = grid;
+		this.roadRepository = roadRepository;
+		this.gridSize = grid.GridSize;
+		this.placementManager = placementManager;
+
+		SetCounters(workerCount);
+
+	}
+
+	private void SetCounters(int workerCount)
+	{
 		this.potholeCount = 0;
 		this.potholeStatusCounter = new Vector3Int(0, 0, 0);
 
 		this.workerCount = workerCount;
 		this.availableWorkerCount = workerCount;
-
-		//Generate the city's road system
-		this.placementManager.GenerateCityRoads(grid, roadRepository);
 	}
 
 	public float TimeSinceLastPothole(float time, float potholeSpawnTime)

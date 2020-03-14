@@ -11,7 +11,8 @@ public class GameManager : MonoBehaviour
 	private Action<int> OnWorkerCountInitEvent;
 
 	public RoadRepository roadRepository;
-	public GameObject roads; 
+	public GameObject roadsParent;
+	public int gridSize = 9;
 
 	public PlacementManager placementManager;
 	public PotholeManager potholeManager;
@@ -35,13 +36,16 @@ public class GameManager : MonoBehaviour
 		SetWorkerCountByDifficulty();
 		//Initialize
 		timeManager = new TimeManager(startHour, oneHourTime);
-		potholeManager = new PotholeManager(2, 9, roadRepository, placementManager, workerNumber);
+		//potholeManager = new PotholeManager(2, gridSize, roadRepository, placementManager, workerNumber);
 	}
 
 	void Start()
 	{
 		Time.timeScale = 1;
-		GridStructure grid = new GridStructure(2, 9);
+		GridStructure grid = new GridStructure(2, gridSize);
+		grid = GetGridStructure(grid);
+		potholeManager = new PotholeManager(grid, roadRepository, placementManager, workerNumber);
+		placementManager.cityRoads = roadsParent.transform;
 
 		//Subscribers
 		//Worker count init
@@ -70,6 +74,24 @@ public class GameManager : MonoBehaviour
 		{
 			potholeManager.SpawnPothole();
 		}
+	}
+
+	private GridStructure GetGridStructure(GridStructure grid)
+	{
+		Transform[] roads = roadsParent.GetComponentsInChildren<Transform>();
+		int index = 0; 
+		foreach(Transform road in roads)
+		{
+			if (index != 0)
+			{
+				Vector2Int gridPosition = grid.GetGridIndexByPosition(road.position);
+				grid.PlaceRoadToGrid(gridPosition.x, gridPosition.y, road.gameObject, false, true);
+			}
+			index++;
+			
+		}
+
+		return grid;
 	}
 
 	public float GetPartOfTheDayMultiplier()
