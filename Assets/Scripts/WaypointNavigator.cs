@@ -36,7 +36,7 @@ public class WaypointNavigator : MonoBehaviour
 
 		this.characterController.SetDestination(this.currentWaypoint.GetPosition(characterController.goingForward));
 
-		Vector3 basePosition = new Vector3(waypoint.transform.position.x, 0, waypoint.transform.position.z);
+		Vector3 basePosition = new Vector3(waypoint.transform.position.x, 1.05f, waypoint.transform.position.z);
 
 		if (characterController.goingForward)
 		{

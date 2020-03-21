@@ -10,10 +10,23 @@ public class CharacterNavigationController : MonoBehaviour
 	public bool goingForward;
 
 	float inFrontAngle = 15f;
-	float inFrontDistance = 0.4f;
+	float inFrontDistance = 0.7f;
 
-    // Update is called once per frame
-    void Update()
+	private void Start()
+	{
+		Reset();
+	}
+
+	public void Reset()
+	{
+		movementSpeed = 1.2f;
+		rotationSpeed = 180;
+		stopDistance = 0.5f;
+		reachedDestination = false;
+	}
+
+	// Update is called once per frame
+	void Update()
     {
         if (transform.position != destination)
 		{
@@ -36,7 +49,6 @@ public class CharacterNavigationController : MonoBehaviour
 					reachedDestination = true;
 				}
 			}
-			
 		}
     }
 
@@ -69,6 +81,14 @@ public class CharacterNavigationController : MonoBehaviour
 				}
 			}
 		}
+
+		return false;
+	}
+
+	bool IsPotholeInFrontOf()
+	{
+		Pothole[] potholes = FindObjectsOfType<Pothole>();
+
 
 		return false;
 	}

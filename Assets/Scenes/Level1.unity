@@ -3480,8 +3480,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 278f470d1d8c3ac45b071e4490d765c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  carPrefab: {fileID: 4863959006263611939, guid: 3dd8a1ea0e21e784a8bcd3f9f9e4e959,
-    type: 3}
+  carPrefabs:
+  - {fileID: -927199367670048503, guid: a67a23468e4f6c248a2993249f4b91dc, type: 3}
+  - {fileID: -927199367670048503, guid: 68a416c47db989c4c8ad63e62e2a9048, type: 3}
+  - {fileID: -927199367670048503, guid: e251db99238921f49a93bd9e939d5d39, type: 3}
+  - {fileID: -927199367670048503, guid: 0eb06de6ec608f840900fb77a74cbdce, type: 3}
+  - {fileID: -927199367670048503, guid: b7180a36ecded324b8beea16cf692594, type: 3}
+  - {fileID: -927199367670048503, guid: 81ebce9620808fa45b77424427add3d7, type: 3}
+  - {fileID: -927199367670048503, guid: fbf074c3aaa49cc4d964f0f6c7f2f5c0, type: 3}
   carsToSpawn: 50
 --- !u!1 &384347636
 GameObject:
