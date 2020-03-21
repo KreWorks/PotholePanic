@@ -7,6 +7,7 @@ public class Waypoint : MonoBehaviour
 	 * Based on the tutorial of Game Dev Guide
 	 * https://www.youtube.com/watch?v=MXCZ-n5VyJc
 	 */
+	
 	public List<Waypoint> previousWaypoint;
 	public List<Waypoint> nextWaypoint;
 

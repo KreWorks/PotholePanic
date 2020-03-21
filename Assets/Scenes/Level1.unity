@@ -2703,6 +2703,36 @@ RectTransform:
   m_AnchoredPosition: {x: -5, y: 0}
   m_SizeDelta: {x: -20, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &343379311
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 343379312}
+  m_Layer: 0
+  m_Name: AiCarParent
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &343379312
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 343379311}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 1, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1645680006}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &343739808
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3480,6 +3510,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 278f470d1d8c3ac45b071e4490d765c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  carParent: {fileID: 343379311}
   carPrefabs:
   - {fileID: -927199367670048503, guid: a67a23468e4f6c248a2993249f4b91dc, type: 3}
   - {fileID: -927199367670048503, guid: 68a416c47db989c4c8ad63e62e2a9048, type: 3}
@@ -14182,6 +14213,7 @@ Transform:
   - {fileID: 1830971066}
   - {fileID: 1570807775}
   - {fileID: 376421602}
+  - {fileID: 343379312}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
