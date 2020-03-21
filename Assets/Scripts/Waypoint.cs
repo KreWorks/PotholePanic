@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class Waypoint : MonoBehaviour
@@ -8,17 +7,49 @@ public class Waypoint : MonoBehaviour
 	 * Based on the tutorial of Game Dev Guide
 	 * https://www.youtube.com/watch?v=MXCZ-n5VyJc
 	 */
-	public Waypoint previousWaypoint;
-	public Waypoint nextWaypoint;
+	public List<Waypoint> previousWaypoint;
+	public List<Waypoint> nextWaypoint;
 
 	[Range(0f, 2f)]
-	public float width = 1f;
+	public float width = 1.2f;
 
-	public Vector3 GetPosition()
+	public Waypoint()
 	{
-		Vector3 minBound = transform.position + transform.right * width / 2f;
-		Vector3 maxBound = transform.position - transform.right * width / 2f;
+		previousWaypoint = new List<Waypoint>();
+		nextWaypoint = new List<Waypoint>();
+	}
 
-		return Vector3.Lerp(minBound, maxBound, Random.Range(0f, 1f));
+	public Vector3 GetPosition(bool goingForward = true)
+	{
+		if (goingForward)
+		{
+			return transform.position + transform.right * width / 4.0f;
+		}
+		else
+		{
+			return transform.position - transform.right * width / 4.0f;
+		}
+	}
+
+	public Waypoint GetNextWaypoint()
+	{
+		return GetNextInList(nextWaypoint);
+	}
+
+	public Waypoint GetPreviousWaypoint()
+	{
+		return GetNextInList(previousWaypoint);
+	}
+
+	Waypoint GetNextInList(List<Waypoint> list)
+	{
+		if (list.Count == 1)
+		{
+			return list[0];
+		}
+		else
+		{
+			return list[Mathf.FloorToInt(Random.Range(0, list.Count))];
+		}
 	}
 }
