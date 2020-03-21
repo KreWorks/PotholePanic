@@ -5,6 +5,7 @@ public class WaypointNavigator : MonoBehaviour
 	CharacterNavigationController characterController;
 
 	public Waypoint currentWaypoint;
+	public Waypoint lastWaypoint;
 
 	private void Awake()
 	{
@@ -16,16 +17,21 @@ public class WaypointNavigator : MonoBehaviour
     {
 		if (characterController.reachedDestination)
 		{
-			if(characterController.goingForward)
+			WaypointWithDirection newWaypoint = new WaypointWithDirection();
+			lastWaypoint = currentWaypoint;
+
+			if (characterController.goingForward)
 			{
-				currentWaypoint = currentWaypoint.GetNextWaypoint();
+				newWaypoint = currentWaypoint.GetNextWaypoint(lastWaypoint);
+				currentWaypoint = newWaypoint.waypoint;
 			}
 			else if (!characterController.goingForward)
 			{
-				currentWaypoint = currentWaypoint.GetPreviousWaypoint();
+				newWaypoint = currentWaypoint.GetPreviousWaypoint(lastWaypoint);
+				currentWaypoint = newWaypoint.waypoint;
 			}
-			
-			characterController.SetDestination(currentWaypoint.GetPosition(characterController.goingForward));
+
+			characterController.SetDestination(currentWaypoint.GetPosition(newWaypoint.goingForward), newWaypoint.goingForward);
 		}
     }
 

@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System;
 using UnityEngine;
 
 public enum PotholeStatus { ToDo, InProgress, Done}
@@ -22,6 +21,8 @@ public class Pothole : MonoBehaviour
 	float carSpawnTime;
 	int carCount;
 
+	private Action OnPotholeDestruction;
+
 	public void SetPothole(PotholeManager potholeManager, float repairTime, PotholeSize potholeSize)
 	{
 		this.gameManager = FindObjectOfType<GameManager>();
@@ -40,6 +41,22 @@ public class Pothole : MonoBehaviour
 		HandleCarSpawn();
 
 		gameManager.CheckEndGame(carCount);
+	}
+
+	public Vector3 GetPotholePositionOnRoad()
+	{
+		Vector3 position = this.transform.position;
+
+		if (size == PotholeSize.Small)
+		{
+			position -= this.transform.right * 0.5f;
+		}
+		else
+		{
+			position += this.transform.right * 0.5f;
+		}
+		
+		return position;
 	}
 
 	void TimeGoBy()
@@ -116,5 +133,14 @@ public class Pothole : MonoBehaviour
 		this.status = PotholeStatus.Done;
 
 		potholeManager.FinishPothole(this, this.assignedWorkers);
+	}
+
+	public void AddListenerOnPotholeDestructionEvent(Action listener)
+	{
+		OnPotholeDestruction += listener;
+	}
+	public void RemoveListenerOnPotholeDestructionEvent(Action listener)
+	{
+		OnPotholeDestruction -= listener;
 	}
 }

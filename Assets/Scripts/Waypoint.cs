@@ -9,8 +9,11 @@ public class Waypoint : MonoBehaviour
 	 */
 	
 	public List<Waypoint> previousWaypoint;
+	public List<bool> previousWaypointDirection;
 	public List<Waypoint> nextWaypoint;
-
+	public List<bool> nextWaypointDirection;
+	
+	
 	[Range(0f, 2f)]
 	public float width = 1.2f;
 
@@ -24,33 +27,52 @@ public class Waypoint : MonoBehaviour
 	{
 		if (goingForward)
 		{
-			return transform.position + transform.right * width / 4.0f;
+			return transform.position + transform.right * width / 3.0f;
 		}
 		else
 		{
-			return transform.position - transform.right * width / 4.0f;
+			return transform.position - transform.right * width / 3.0f;
 		}
 	}
 
-	public Waypoint GetNextWaypoint()
+	public WaypointWithDirection GetNextWaypoint(Waypoint lastWaypoint)
 	{
-		return GetNextInList(nextWaypoint);
+		return GetNextInList(nextWaypoint, nextWaypointDirection, lastWaypoint);
 	}
 
-	public Waypoint GetPreviousWaypoint()
+	public WaypointWithDirection GetPreviousWaypoint(Waypoint lastWaypoint)
 	{
-		return GetNextInList(previousWaypoint);
+		return GetNextInList(previousWaypoint, previousWaypointDirection, lastWaypoint);
 	}
 
-	Waypoint GetNextInList(List<Waypoint> list)
+	WaypointWithDirection GetNextInList(List<Waypoint> list, List<bool> listWithDirection, Waypoint lastWaypoint)
 	{
+		WaypointWithDirection returnValue;
+
 		if (list.Count == 1)
 		{
-			return list[0];
+			returnValue.waypoint = list[0];
+			returnValue.goingForward = listWithDirection[0];
 		}
 		else
 		{
-			return list[Mathf.FloorToInt(Random.Range(0, list.Count))];
+			int index = -1;
+
+			while (index == -1 || list[index] == lastWaypoint)
+			{
+				index = Mathf.FloorToInt(Random.Range(0, list.Count));
+			}
+
+			returnValue.waypoint = list[index];
+			returnValue.goingForward = listWithDirection[index];
 		}
+
+		return returnValue;
 	}
+}
+
+public struct WaypointWithDirection
+{
+	public Waypoint waypoint;
+	public bool goingForward;
 }

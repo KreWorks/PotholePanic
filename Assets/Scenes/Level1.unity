@@ -392,8 +392,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   previousWaypoint:
   - {fileID: 1563224211}
+  - {fileID: 223418929}
+  previousWaypointDirection: 0001
   nextWaypoint:
   - {fileID: 1345568504}
+  nextWaypointDirection: 01
   width: 1.2
 --- !u!4 &37850988
 Transform:
@@ -403,7 +406,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 37850986}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 8, y: 0, z: 3.11}
+  m_LocalPosition: {x: 8, y: 0, z: 2.54}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 376421602}
@@ -622,8 +625,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   previousWaypoint:
   - {fileID: 1620613371}
+  previousWaypointDirection: 00
   nextWaypoint:
   - {fileID: 226756752}
+  - {fileID: 1570048911}
+  nextWaypointDirection: 0100
   width: 1.2
 --- !u!4 &55322800
 Transform:
@@ -633,7 +639,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 55322798}
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: -8, y: 0, z: 2.87}
+  m_LocalPosition: {x: -8, y: 0, z: 2.492}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 376421602}
@@ -695,8 +701,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   previousWaypoint:
   - {fileID: 1976420175}
+  previousWaypointDirection: 00
   nextWaypoint:
   - {fileID: 1598451456}
+  nextWaypointDirection: 01
   width: 1.2
 --- !u!4 &89679062
 Transform:
@@ -1077,8 +1085,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   previousWaypoint:
   - {fileID: 1281797226}
+  previousWaypointDirection: 00
   nextWaypoint:
   - {fileID: 1707939739}
+  nextWaypointDirection: 01
   width: 1.2
 --- !u!4 &159081703
 Transform:
@@ -1150,8 +1160,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   previousWaypoint:
   - {fileID: 548841263}
+  previousWaypointDirection: 00
   nextWaypoint:
   - {fileID: 541902434}
+  nextWaypointDirection: 01
   width: 1.2
 --- !u!4 &170811018
 Transform:
@@ -1346,8 +1358,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   previousWaypoint:
   - {fileID: 864353706}
+  previousWaypointDirection: 00
   nextWaypoint:
   - {fileID: 1268170323}
+  nextWaypointDirection: 01
   width: 1.2
 --- !u!4 &191968435
 Transform:
@@ -1560,7 +1574,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 223418927}
   m_LocalRotation: {x: 0, y: -0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 7.1019998, y: 0, z: 2}
+  m_LocalPosition: {x: 7.215, y: 0, z: 2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 376421602}
@@ -1580,8 +1594,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   previousWaypoint:
   - {fileID: 1563224211}
+  - {fileID: 37850987}
+  previousWaypointDirection: 0001
   nextWaypoint:
   - {fileID: 821226417}
+  nextWaypointDirection: 01
   width: 1.2
 --- !u!1 &224809197
 GameObject:
@@ -1688,8 +1705,10 @@ MonoBehaviour:
   previousWaypoint:
   - {fileID: 55322799}
   - {fileID: 1570048911}
+  previousWaypointDirection: 0000
   nextWaypoint:
   - {fileID: 1368010743}
+  nextWaypointDirection: 01
   width: 1.2
 --- !u!4 &226756753
 Transform:
@@ -1699,7 +1718,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 226756751}
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: -8, y: 0, z: 1.105}
+  m_LocalPosition: {x: -8, y: 0, z: 1.449}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 376421602}
@@ -2285,8 +2304,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   previousWaypoint:
   - {fileID: 1345568504}
+  previousWaypointDirection: 00
   nextWaypoint:
   - {fileID: 675493860}
+  nextWaypointDirection: 01
   width: 1.4
 --- !u!4 &291182451
 Transform:
@@ -2399,8 +2420,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   previousWaypoint:
   - {fileID: 1799065666}
+  previousWaypointDirection: 00
   nextWaypoint:
   - {fileID: 1179435750}
+  nextWaypointDirection: 01
   width: 1.2
 --- !u!4 &296020418
 Transform:
@@ -3243,8 +3266,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   previousWaypoint:
   - {fileID: 1179435750}
+  previousWaypointDirection: 00
   nextWaypoint:
   - {fileID: 819234217}
+  nextWaypointDirection: 01
   width: 1.2
 --- !u!4 &369757184
 Transform:
@@ -3755,8 +3780,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   previousWaypoint:
   - {fileID: 1389602301}
+  - {fileID: 1673083335}
+  previousWaypointDirection: 0001
   nextWaypoint:
   - {fileID: 733529507}
+  nextWaypointDirection: 01
   width: 1.2
 --- !u!4 &434021363
 Transform:
@@ -3766,7 +3794,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 434021361}
   m_LocalRotation: {x: -0, y: -0.9999999, z: -0, w: 0.0004856683}
-  m_LocalPosition: {x: 2, y: 0, z: 7.06}
+  m_LocalPosition: {x: 2, y: 0, z: 7.25}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 376421602}
@@ -4588,8 +4616,10 @@ MonoBehaviour:
   previousWaypoint:
   - {fileID: 589018232}
   - {fileID: 1994015918}
+  previousWaypointDirection: 0000
   nextWaypoint:
   - {fileID: 560582800}
+  nextWaypointDirection: 01
   width: 1.2
 --- !u!4 &538394876
 Transform:
@@ -4599,7 +4629,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 538394874}
   m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071067}
-  m_LocalPosition: {x: -1.2, y: 0, z: -7.99}
+  m_LocalPosition: {x: -1.49, y: 0, z: -7.99}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 376421602}
@@ -4636,8 +4666,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   previousWaypoint:
   - {fileID: 170811017}
+  previousWaypointDirection: 00
   nextWaypoint:
   - {fileID: 1570048911}
+  nextWaypointDirection: 01
   width: 1.2
 --- !u!4 &541902435
 Transform:
@@ -4684,8 +4716,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   previousWaypoint:
   - {fileID: 821226417}
+  previousWaypointDirection: 00
   nextWaypoint:
   - {fileID: 170811017}
+  nextWaypointDirection: 01
   width: 1.2
 --- !u!4 &548841264
 Transform:
@@ -4732,8 +4766,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   previousWaypoint:
   - {fileID: 538394875}
+  previousWaypointDirection: 00
   nextWaypoint:
   - {fileID: 1976420175}
+  - {fileID: 1707939739}
+  nextWaypointDirection: 0100
   width: 1.2
 --- !u!4 &560582801
 Transform:
@@ -4743,7 +4780,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 560582799}
   m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071067}
-  m_LocalPosition: {x: 0.913, y: 0, z: -8.009}
+  m_LocalPosition: {x: 1.46, y: 0, z: -8.009}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 376421602}
@@ -5594,8 +5631,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   previousWaypoint:
   - {fileID: 656938178}
+  previousWaypointDirection: 00
   nextWaypoint:
   - {fileID: 538394875}
+  - {fileID: 1994015918}
+  nextWaypointDirection: 0100
   width: 1.2
 --- !u!4 &589018233
 Transform:
@@ -5605,7 +5645,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 589018231}
   m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: -2.9, y: 0, z: -8}
+  m_LocalPosition: {x: -2.53, y: 0, z: -8}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 376421602}
@@ -6480,8 +6520,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   previousWaypoint:
   - {fileID: 1513262963}
+  previousWaypointDirection: 00
   nextWaypoint:
   - {fileID: 589018232}
+  nextWaypointDirection: 01
   width: 1.2
 --- !u!4 &656938179
 Transform:
@@ -6553,8 +6595,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   previousWaypoint:
   - {fileID: 1255978038}
+  previousWaypointDirection: 00
   nextWaypoint:
   - {fileID: 1878206321}
+  nextWaypointDirection: 01
   width: 1.2
 --- !u!4 &671656260
 Transform:
@@ -6601,8 +6645,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   previousWaypoint:
   - {fileID: 291182450}
+  previousWaypointDirection: 00
   nextWaypoint:
   - {fileID: 1389602301}
+  nextWaypointDirection: 01
   width: 1.2
 --- !u!4 &675493861
 Transform:
@@ -6860,8 +6906,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   previousWaypoint:
   - {fileID: 1734829979}
+  previousWaypointDirection: 00
   nextWaypoint:
   - {fileID: 1513262963}
+  nextWaypointDirection: 01
   width: 1.2
 --- !u!4 &707423676
 Transform:
@@ -7061,8 +7109,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   previousWaypoint:
   - {fileID: 434021362}
+  previousWaypointDirection: 00
   nextWaypoint:
   - {fileID: 1654416005}
+  nextWaypointDirection: 01
   width: 1.2
 --- !u!4 &733529508
 Transform:
@@ -7594,8 +7644,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   previousWaypoint:
   - {fileID: 1878206321}
+  previousWaypointDirection: 00
   nextWaypoint:
   - {fileID: 1023861499}
+  nextWaypointDirection: 01
   width: 1.2
 --- !u!4 &764838245
 Transform:
@@ -7891,8 +7943,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   previousWaypoint:
   - {fileID: 369757183}
+  previousWaypointDirection: 00
   nextWaypoint:
   - {fileID: 1994015918}
+  nextWaypointDirection: 01
   width: 1.2
 --- !u!4 &819234218
 Transform:
@@ -7939,8 +7993,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   previousWaypoint:
   - {fileID: 223418929}
+  previousWaypointDirection: 00
   nextWaypoint:
   - {fileID: 548841263}
+  nextWaypointDirection: 01
   width: 1.2
 --- !u!4 &821226418
 Transform:
@@ -8289,8 +8345,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   previousWaypoint:
   - {fileID: 1334940089}
+  - {fileID: 1799065666}
+  previousWaypointDirection: 0001
   nextWaypoint:
   - {fileID: 191968434}
+  nextWaypointDirection: 01
   width: 1.2
 --- !u!4 &864353707
 Transform:
@@ -8300,7 +8359,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 864353705}
   m_LocalRotation: {x: 0, y: -0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: -2.872, y: 0, z: 8}
+  m_LocalPosition: {x: -2.462, y: 0, z: 8}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 376421602}
@@ -9681,8 +9740,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   previousWaypoint:
   - {fileID: 764838244}
+  previousWaypointDirection: 00
   nextWaypoint:
   - {fileID: 1489167766}
+  nextWaypointDirection: 01
   width: 1.2
 --- !u!4 &1023861500
 Transform:
@@ -10710,8 +10771,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   previousWaypoint:
   - {fileID: 296020417}
+  previousWaypointDirection: 00
   nextWaypoint:
   - {fileID: 369757183}
+  nextWaypointDirection: 01
   width: 1.2
 --- !u!4 &1179435751
 Transform:
@@ -11115,8 +11178,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   previousWaypoint:
   - {fileID: 1547631565}
+  - {fileID: 1605606011}
+  previousWaypointDirection: 0001
   nextWaypoint:
   - {fileID: 671656259}
+  nextWaypointDirection: 01
   width: 1.2
 --- !u!4 &1255978039
 Transform:
@@ -11126,7 +11192,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1255978037}
   m_LocalRotation: {x: -0, y: -0.7071068, z: -0, w: 0.7071067}
-  m_LocalPosition: {x: 7.1, y: 0, z: -2}
+  m_LocalPosition: {x: 7.264, y: 0, z: -2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 376421602}
@@ -11163,8 +11229,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   previousWaypoint:
   - {fileID: 191968434}
+  previousWaypointDirection: 00
   nextWaypoint:
   - {fileID: 1620613371}
+  nextWaypointDirection: 01
   width: 1.4
 --- !u!4 &1268170324
 Transform:
@@ -11231,8 +11299,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   previousWaypoint:
   - {fileID: 1654416005}
+  previousWaypointDirection: 00
   nextWaypoint:
   - {fileID: 159081702}
+  nextWaypointDirection: 01
   width: 1.2
 --- !u!1 &1292638729 stripped
 GameObject:
@@ -11340,9 +11410,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   previousWaypoint:
   - {fileID: 1673083335}
+  previousWaypointDirection: 00
   nextWaypoint:
   - {fileID: 864353706}
   - {fileID: 1799065666}
+  nextWaypointDirection: 0101
   width: 1.2
 --- !u!4 &1334940090
 Transform:
@@ -11352,7 +11424,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1334940088}
   m_LocalRotation: {x: 0, y: -0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: -1.2, y: 0, z: 7.96}
+  m_LocalPosition: {x: -1.461, y: 0, z: 7.96}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 376421602}
@@ -11536,8 +11608,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   previousWaypoint:
   - {fileID: 37850987}
+  previousWaypointDirection: 00
   nextWaypoint:
   - {fileID: 291182450}
+  nextWaypointDirection: 01
   width: 1.2
 --- !u!4 &1345568505
 Transform:
@@ -11907,8 +11981,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   previousWaypoint:
   - {fileID: 226756752}
+  previousWaypointDirection: 00
   nextWaypoint:
   - {fileID: 1734829979}
+  - {fileID: 1489167766}
+  nextWaypointDirection: 0100
   width: 1.2
 --- !u!4 &1368010744
 Transform:
@@ -11918,7 +11995,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1368010742}
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: -8, y: 0, z: -0.899}
+  m_LocalPosition: {x: -8, y: 0, z: -1.47}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 376421602}
@@ -12117,9 +12194,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   previousWaypoint:
   - {fileID: 675493860}
+  previousWaypointDirection: 00
   nextWaypoint:
   - {fileID: 1673083335}
   - {fileID: 434021362}
+  nextWaypointDirection: 0101
   width: 1.2
 --- !u!4 &1389602302
 Transform:
@@ -12129,7 +12208,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1389602300}
   m_LocalRotation: {x: 0, y: -0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 2.78, y: 0, z: 7.95}
+  m_LocalPosition: {x: 2.54, y: 0, z: 7.95}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 376421602}
@@ -12993,8 +13072,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   previousWaypoint:
   - {fileID: 1023861499}
+  previousWaypointDirection: 00
   nextWaypoint:
   - {fileID: 1734829979}
+  - {fileID: 1368010743}
+  nextWaypointDirection: 0100
   width: 1.2
 --- !u!4 &1489167767
 Transform:
@@ -13004,7 +13086,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1489167765}
   m_LocalRotation: {x: -0, y: -0.7071068, z: -0, w: 0.7071067}
-  m_LocalPosition: {x: -7.25, y: 0, z: -2}
+  m_LocalPosition: {x: -7.311, y: 0, z: -2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 376421602}
@@ -13450,8 +13532,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   previousWaypoint:
   - {fileID: 707423675}
+  previousWaypointDirection: 00
   nextWaypoint:
   - {fileID: 656938178}
+  nextWaypointDirection: 01
   width: 1.4
 --- !u!4 &1513262964
 Transform:
@@ -13498,9 +13582,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   previousWaypoint:
   - {fileID: 1977579847}
+  previousWaypointDirection: 00
   nextWaypoint:
   - {fileID: 1255978038}
   - {fileID: 1605606011}
+  nextWaypointDirection: 0101
   width: 1.2
 --- !u!4 &1547631566
 Transform:
@@ -13510,7 +13596,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1547631564}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 8, y: 0, z: -3.061}
+  m_LocalPosition: {x: 8, y: 0, z: -2.51}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 376421602}
@@ -13547,9 +13633,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   previousWaypoint:
   - {fileID: 1605606011}
+  previousWaypointDirection: 00
   nextWaypoint:
   - {fileID: 37850987}
   - {fileID: 223418929}
+  nextWaypointDirection: 0101
   width: 1.2
 --- !u!4 &1563224212
 Transform:
@@ -13559,7 +13647,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1563224210}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 8, y: 0, z: 0.99}
+  m_LocalPosition: {x: 8, y: 0, z: 1.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 376421602}
@@ -13621,8 +13709,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   previousWaypoint:
   - {fileID: 541902434}
+  previousWaypointDirection: 00
   nextWaypoint:
   - {fileID: 226756752}
+  - {fileID: 55322799}
+  nextWaypointDirection: 0100
   width: 1.2
 --- !u!4 &1570048912
 Transform:
@@ -13632,7 +13723,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1570048910}
   m_LocalRotation: {x: 0, y: -0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: -7.248, y: 0, z: 2}
+  m_LocalPosition: {x: -7.282, y: 0, z: 2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 376421602}
@@ -13902,8 +13993,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   previousWaypoint:
   - {fileID: 89679061}
+  previousWaypointDirection: 00
   nextWaypoint:
   - {fileID: 1977579847}
+  nextWaypointDirection: 01
   width: 1.4
 --- !u!4 &1598451457
 Transform:
@@ -13950,8 +14043,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   previousWaypoint:
   - {fileID: 1547631565}
+  - {fileID: 1255978038}
+  previousWaypointDirection: 0001
   nextWaypoint:
   - {fileID: 1563224211}
+  nextWaypointDirection: 01
   width: 1.2
 --- !u!4 &1605606012
 Transform:
@@ -13961,7 +14057,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1605606010}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 8, y: 0, z: -0.94}
+  m_LocalPosition: {x: 8, y: 0, z: -1.503}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 376421602}
@@ -13998,8 +14094,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   previousWaypoint:
   - {fileID: 1268170323}
+  previousWaypointDirection: 00
   nextWaypoint:
   - {fileID: 55322799}
+  nextWaypointDirection: 01
   width: 1.2
 --- !u!4 &1620613372
 Transform:
@@ -14515,8 +14613,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   previousWaypoint:
   - {fileID: 733529507}
+  previousWaypointDirection: 00
   nextWaypoint:
   - {fileID: 1281797226}
+  nextWaypointDirection: 01
   width: 1.2
 --- !u!1 &1673083334
 GameObject:
@@ -14549,8 +14649,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   previousWaypoint:
   - {fileID: 1389602301}
+  - {fileID: 434021362}
+  previousWaypointDirection: 0001
   nextWaypoint:
   - {fileID: 1334940089}
+  nextWaypointDirection: 01
   width: 1.2
 --- !u!4 &1673083336
 Transform:
@@ -14560,7 +14663,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1673083334}
   m_LocalRotation: {x: 0, y: -0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 1.03, y: 0, z: 8}
+  m_LocalPosition: {x: 1.5, y: 0, z: 8}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 376421602}
@@ -15163,7 +15266,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1707939737}
   m_LocalRotation: {x: -0, y: 0.9999999, z: -0, w: -0.0004856683}
-  m_LocalPosition: {x: 2, y: 0, z: -7.06}
+  m_LocalPosition: {x: 2, y: 0, z: -7.308}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 376421602}
@@ -15183,8 +15286,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   previousWaypoint:
   - {fileID: 159081702}
+  previousWaypointDirection: 00
   nextWaypoint:
   - {fileID: 1976420175}
+  - {fileID: 560582800}
+  nextWaypointDirection: 0100
   width: 1.2
 --- !u!1001 &1719133536
 PrefabInstance:
@@ -15420,8 +15526,10 @@ MonoBehaviour:
   previousWaypoint:
   - {fileID: 1368010743}
   - {fileID: 1489167766}
+  previousWaypointDirection: 0000
   nextWaypoint:
   - {fileID: 707423675}
+  nextWaypointDirection: 01
   width: 1.2
 --- !u!4 &1734829980
 Transform:
@@ -15431,7 +15539,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1734829978}
   m_LocalRotation: {x: -0, y: 0.9999302, z: -0, w: -0.011815446}
-  m_LocalPosition: {x: -8, y: 0, z: -3.08}
+  m_LocalPosition: {x: -7.99, y: 0, z: -2.55}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 376421602}
@@ -15644,8 +15752,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   previousWaypoint:
   - {fileID: 1334940089}
+  - {fileID: 864353706}
+  previousWaypointDirection: 0001
   nextWaypoint:
   - {fileID: 296020417}
+  nextWaypointDirection: 01
   width: 1.2
 --- !u!4 &1799065667
 Transform:
@@ -15655,7 +15766,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1799065665}
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: -1.998, y: 0, z: 7.022}
+  m_LocalPosition: {x: -1.998, y: 0, z: 7.212}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 376421602}
@@ -16652,8 +16763,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   previousWaypoint:
   - {fileID: 671656259}
+  previousWaypointDirection: 00
   nextWaypoint:
   - {fileID: 764838244}
+  nextWaypointDirection: 01
   width: 1.2
 --- !u!4 &1878206322
 Transform:
@@ -17221,8 +17334,10 @@ MonoBehaviour:
   previousWaypoint:
   - {fileID: 560582800}
   - {fileID: 1707939739}
+  previousWaypointDirection: 0000
   nextWaypoint:
   - {fileID: 89679061}
+  nextWaypointDirection: 01
   width: 1.2
 --- !u!4 &1976420176
 Transform:
@@ -17232,7 +17347,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1976420174}
   m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071067}
-  m_LocalPosition: {x: 2.817, y: 0, z: -8.03}
+  m_LocalPosition: {x: 2.55, y: 0, z: -8.03}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 376421602}
@@ -17269,8 +17384,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   previousWaypoint:
   - {fileID: 1598451456}
+  previousWaypointDirection: 00
   nextWaypoint:
   - {fileID: 1547631565}
+  nextWaypointDirection: 01
   width: 1.2
 --- !u!4 &1977579848
 Transform:
@@ -17410,7 +17527,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1994015916}
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: -2, y: 0, z: -7.09}
+  m_LocalPosition: {x: -2, y: 0, z: -7.279}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 376421602}
@@ -17430,8 +17547,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   previousWaypoint:
   - {fileID: 819234217}
+  previousWaypointDirection: 00
   nextWaypoint:
   - {fileID: 538394875}
+  - {fileID: 589018232}
+  nextWaypointDirection: 0100
   width: 1.2
 --- !u!1 &1994217944
 GameObject:

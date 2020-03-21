@@ -9,8 +9,23 @@ public class CharacterNavigationController : MonoBehaviour
 	public bool reachedDestination = false;
 	public bool goingForward;
 
-	float inFrontAngle = 15f;
+	float carInFrontAngle = 30f;
+	float potholeInFrontAngle = 70f;
 	float inFrontDistance = 0.7f;
+	float toleranceTime = 5f;
+
+	public CarState carState;
+
+	public MovingCarSate movingState;
+	public CarStoppedCarState stoppedByCarState;
+	public PotholeStoppedCarState stoppedByPotholeState;
+
+	private void Awake()
+	{
+		movingState = new MovingCarSate(this);
+		stoppedByCarState = new CarStoppedCarState(this, toleranceTime);
+		stoppedByPotholeState = new PotholeStoppedCarState(this);
+	}
 
 	private void Start()
 	{
@@ -23,42 +38,83 @@ public class CharacterNavigationController : MonoBehaviour
 		rotationSpeed = 180;
 		stopDistance = 0.5f;
 		reachedDestination = false;
+		carState = movingState;
 	}
 
 	// Update is called once per frame
 	void Update()
-    {
-        if (transform.position != destination)
+	{
+		Pothole pothole = CheckForPotholes();
+
+		if(pothole != null)
+		{
+			carState.TransitionToState(stoppedByPotholeState, pothole);
+		}
+
+		CharacterNavigationController otherCar = CheckForOtherCars();
+		if (otherCar != null)
+		{
+			if (otherCar.carState.StoppedByPothole())
+			{
+				carState.TransitionToState(stoppedByPotholeState, otherCar.carState.GetPothole());
+			}
+			else
+			{
+				carState.TransitionToState(stoppedByCarState, otherCar);
+			}
+		}
+
+		if (pothole == null && otherCar == null && !carState.IsMoving())
+		{
+			carState.TransitionToState(movingState);
+		}
+
+		if (carState.IsMoving())
+		{
+			MoveTowardsDestination();
+		}
+		else
+		{
+			carState.TimeGoesBy(Time.deltaTime);
+			if (carState.NeedToKillCar())
+			{
+				Destroy(this.gameObject);
+			}
+		}
+	}
+
+	private void MoveTowardsDestination()
+	{
+		if (transform.position != destination)
 		{
 			Vector3 destinationDirection = destination - transform.position;
 			destinationDirection.y = 0;
 
 			float destinationDistance = destinationDirection.magnitude;
 
-			if (!IsOtherCarInFrontOf(inFrontDistance))
+			if (destinationDistance >= stopDistance)
 			{
-				if (destinationDistance >= stopDistance)
-				{
-					reachedDestination = false;
-					Quaternion targetRotation = Quaternion.LookRotation(destinationDirection);
-					transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
-					transform.Translate(Vector3.forward * movementSpeed * Time.deltaTime);
-				}
-				else
-				{
-					reachedDestination = true;
-				}
+				reachedDestination = false;
+				Quaternion targetRotation = Quaternion.LookRotation(destinationDirection);
+				transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
+				transform.Translate(Vector3.forward * movementSpeed * Time.deltaTime);
+			}
+			else
+			{
+				reachedDestination = true;
 			}
 		}
-    }
+	}
 
-	public void SetDestination(Vector3 destination)
+	public void SetDestination(Vector3 destination, bool goingForward = true)
 	{
 		this.destination = destination;
+		this.goingForward = goingForward;
 		this.reachedDestination = false;
 	}
 
-	bool IsOtherCarInFrontOf(float radius)
+
+	CharacterNavigationController CheckForOtherCars()
 	{
 		CharacterNavigationController[] cars = FindObjectsOfType<CharacterNavigationController>();
 
@@ -72,24 +128,37 @@ public class CharacterNavigationController : MonoBehaviour
 				float angle = Vector3.Angle(carForward, otherCarDirection);
 				float distanceSqr = (otherCarDirection).sqrMagnitude;
 
-				if (distanceSqr < radius)
+				if (distanceSqr < inFrontDistance && (angle > -carInFrontAngle && angle < carInFrontAngle))
 				{
-					if (angle > -inFrontAngle && angle < inFrontAngle)
-					{
-						return true;
-					}
+					return car;
 				}
 			}
 		}
 
-		return false;
+		return null;
 	}
 
-	bool IsPotholeInFrontOf()
+	Pothole CheckForPotholes()
 	{
 		Pothole[] potholes = FindObjectsOfType<Pothole>();
 
+		foreach (Pothole pothole in potholes)
+		{
+			Vector3 carForward = this.transform.forward;
+			Vector3 potholeDirection = pothole.GetPotholePositionOnRoad() - this.transform.position;
 
-		return false;
+			float angle = Vector3.Angle(carForward, potholeDirection);
+			float distanceSqr = (potholeDirection).sqrMagnitude;
+
+			//TODO somehow detect with side has a pothole
+			pothole.GetPotholePositionOnRoad();
+
+			if (distanceSqr < 2 * inFrontDistance && (angle > -potholeInFrontAngle && angle < potholeInFrontAngle))
+			{
+				return pothole;
+			}
+		}
+
+		return null;
 	}
 }

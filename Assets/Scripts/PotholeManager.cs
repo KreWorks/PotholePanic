@@ -191,30 +191,5 @@ public class PotholeManager
 	{
 		OnAvailableWorkerChangeEvent -= listener;
 	}
-
-	/*Pothole GetTodoPothole()
-	{
-		foreach(Pothole hole in holes)
-		{
-			if(hole.status == PotholeStatus.ToDo)
-			{
-				return hole;
-			}
-		}
-
-		return null;
-	}
-
-	public void ShowPothole()
-	{
-		Pothole holeToShow = GetTodoPothole();
-
-		if(holeToShow != null)
-		{
-			CameraController cc = GameObject.FindObjectOfType<CameraController>();
-			//cc.MoveCameraToSpecificPosition(holeToShow.position);
-		}
-
-	}*/
 }
 

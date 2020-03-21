@@ -1,0 +1,36 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public abstract class CarState
+{
+	protected CharacterNavigationController characterNavigatonController;
+	protected float sinceStopped;
+
+	public CarState(CharacterNavigationController characterNavigatonController)
+	{
+		this.characterNavigatonController = characterNavigatonController;
+	}
+
+	public abstract bool IsMoving();
+	public abstract bool StoppedByCar();
+	public abstract bool StoppedByPothole();
+
+	public virtual void SetPothole(Pothole pothole) { }
+	public virtual Pothole GetPothole() { return null; }
+	public virtual void SetOtherCarController(CharacterNavigationController otherCarController) { }
+	public virtual CharacterNavigationController GetOtherCarController() { return null; }
+
+	public virtual bool NeedToKillCar() { return false; }
+
+	public virtual void TransitionToState(CarState newState, CharacterNavigationController otherCarController) { }
+	public virtual void TransitionToState(CarState newState, Pothole pothole) { }
+
+	public void TransitionToState(CarState newState)
+	{
+		this.characterNavigatonController.carState = newState;
+	}
+
+	public void TimeGoesBy(float time) { this.sinceStopped += time; }
+	public float GetTimeSinceStopped() { return this.sinceStopped; }
+}
