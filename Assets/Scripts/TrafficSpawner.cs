@@ -7,6 +7,10 @@ public class TrafficSpawner : MonoBehaviour
 	public GameObject[] carPrefabs;
 	public int carsToSpawn;
 
+	public float movementSpeed = 1.2f;
+	public int rotationSpeed = 180;
+	public float stopDistance = 0.5f;
+
 	// Start is called before the first frame update
 	void Start()
 	{
@@ -47,7 +51,7 @@ public class TrafficSpawner : MonoBehaviour
 		int direction = Mathf.RoundToInt(Random.Range(0f, 1f));
 
 		obj.AddComponent<CharacterNavigationController>();
-		obj.GetComponent<CharacterNavigationController>().Reset();
+		obj.GetComponent<CharacterNavigationController>().Reset(movementSpeed, rotationSpeed, stopDistance);
 		obj.AddComponent<WaypointNavigator>();
 		obj.GetComponent<WaypointNavigator>().SetParams(child.GetComponent<Waypoint>(), direction);
 	}

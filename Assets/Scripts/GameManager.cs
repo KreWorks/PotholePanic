@@ -24,7 +24,6 @@ public class GameManager : MonoBehaviour
 	public int startHour = 12;
 
 	public float potholeSpawnTime = 10f;
-	public float carSpawnTime = 8f;
 	public int endGameCarCount = 5;
 
 	int difficulty;

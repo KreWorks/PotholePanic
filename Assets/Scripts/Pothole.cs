@@ -18,7 +18,6 @@ public class Pothole : MonoBehaviour
 	public int assignedWorkers;
 
 	float timeSinceSpawn;
-	float carSpawnTime;
 	int carCount;
 
 	private Action OnPotholeDestruction;
@@ -26,7 +25,6 @@ public class Pothole : MonoBehaviour
 	public void SetPothole(PotholeManager potholeManager, float repairTime, PotholeSize potholeSize)
 	{
 		this.gameManager = FindObjectOfType<GameManager>();
-		this.carSpawnTime = gameManager.carSpawnTime;
 		this.potholeManager = potholeManager;
 		this.repairTime = repairTime;
 		this.size = potholeSize;

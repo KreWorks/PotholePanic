@@ -3545,6 +3545,9 @@ MonoBehaviour:
   - {fileID: -927199367670048503, guid: 81ebce9620808fa45b77424427add3d7, type: 3}
   - {fileID: -927199367670048503, guid: fbf074c3aaa49cc4d964f0f6c7f2f5c0, type: 3}
   carsToSpawn: 50
+  movementSpeed: 0.9
+  rotationSpeed: 180
+  stopDistance: 0.55
 --- !u!1 &384347636
 GameObject:
   m_ObjectHideFlags: 0
@@ -18039,7 +18042,7 @@ MonoBehaviour:
   startHour: 12
   potholeSpawnTime: 7
   carSpawnTime: 5
-  endGameCarCount: 5
+  endGameCarCount: 7
 --- !u!4 &2042350914
 Transform:
   m_ObjectHideFlags: 0

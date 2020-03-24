@@ -12,7 +12,7 @@ public class CharacterNavigationController : MonoBehaviour
 	float carInFrontAngle = 30f;
 	float potholeInFrontAngle = 70f;
 	float inFrontDistance = 0.7f;
-	float toleranceTime = 5f;
+	float toleranceTime = 3f;
 
 	public CarState carState;
 
@@ -27,16 +27,11 @@ public class CharacterNavigationController : MonoBehaviour
 		stoppedByPotholeState = new PotholeStoppedCarState(this);
 	}
 
-	private void Start()
+	public void Reset(float moveSpeed, int rotationSpeed, float stopDistance)
 	{
-		Reset();
-	}
-
-	public void Reset()
-	{
-		movementSpeed = 1.2f;
-		rotationSpeed = 180;
-		stopDistance = 0.5f;
+		this.movementSpeed = moveSpeed;
+		this.rotationSpeed = rotationSpeed;
+		this.stopDistance = stopDistance;
 		reachedDestination = false;
 		carState = movingState;
 	}
