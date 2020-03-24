@@ -1,6 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
+using System;
 
 public class MovingCarSate : CarState
 {
@@ -30,9 +29,9 @@ public class MovingCarSate : CarState
 		base.TransitionToState(newState);
 	}
 
-	public override void TransitionToState(CarState newState, Pothole pothole)
+	public override void TransitionToState(CarState newState, Pothole pothole, Action potholeWatcher)
 	{
-		newState.SetPothole(pothole);
+		newState.SetPothole(pothole, potholeWatcher);
 		base.TransitionToState(newState);
 	}
 

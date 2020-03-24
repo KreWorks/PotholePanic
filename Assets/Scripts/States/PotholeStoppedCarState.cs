@@ -1,10 +1,11 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
+using System;
 
 public class PotholeStoppedCarState : CarState
 {
 	public Pothole pothole;
+
+	Action potholeWatcherAction;
 
 	public PotholeStoppedCarState(CharacterNavigationController characterNavigationController) : base(characterNavigationController)
 	{
@@ -27,9 +28,17 @@ public class PotholeStoppedCarState : CarState
 		return true;
 	}
 
-	public override void SetPothole(Pothole pothole)
+	public override void SetPothole(Pothole pothole, Action potholeWatcher)
 	{
 		this.pothole = pothole;
+		this.pothole.AddCarToPothole();
+		this.pothole.AddListenerOnPotholeDestructionEvent(potholeWatcher);
+		this.potholeWatcherAction = potholeWatcher;
+	}
+
+	public override void ExitState()
+	{
+		this.pothole.RemoveListenerOnPotholeDestructionEvent(this.potholeWatcherAction);
 	}
 
 	public override Pothole GetPothole()

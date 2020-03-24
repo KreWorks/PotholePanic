@@ -48,7 +48,7 @@ public class CharacterNavigationController : MonoBehaviour
 
 		if(pothole != null)
 		{
-			carState.TransitionToState(stoppedByPotholeState, pothole);
+			carState.TransitionToState(stoppedByPotholeState, pothole, PotholeDone);
 		}
 
 		CharacterNavigationController otherCar = CheckForOtherCars();
@@ -56,7 +56,7 @@ public class CharacterNavigationController : MonoBehaviour
 		{
 			if (otherCar.carState.StoppedByPothole())
 			{
-				carState.TransitionToState(stoppedByPotholeState, otherCar.carState.GetPothole());
+				carState.TransitionToState(stoppedByPotholeState, otherCar.carState.GetPothole(), PotholeDone);
 			}
 			else
 			{
@@ -111,6 +111,11 @@ public class CharacterNavigationController : MonoBehaviour
 		this.destination = destination;
 		this.goingForward = goingForward;
 		this.reachedDestination = false;
+	}
+
+	public void PotholeDone()
+	{
+		carState.TransitionToState(movingState);
 	}
 
 

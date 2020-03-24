@@ -38,9 +38,6 @@ public class Pothole : MonoBehaviour
 	{
 		TimeGoBy();
 		SolvePothole();
-		HandleCarSpawn();
-
-		gameManager.CheckEndGame(carCount);
 	}
 
 	public Vector3 GetPotholePositionOnRoad()
@@ -57,6 +54,12 @@ public class Pothole : MonoBehaviour
 		}
 		
 		return position;
+	}
+
+	public void AddCarToPothole()
+	{
+		carCount++;
+		gameManager.CheckEndGame(carCount);
 	}
 
 	void TimeGoBy()
@@ -81,43 +84,6 @@ public class Pothole : MonoBehaviour
 		}
 	}
 
-	void HandleCarSpawn()
-	{
-		if(carSpawnTime <= (timeSinceSpawn - carCount * carSpawnTime))
-		{
-			SpawnCar();
-		}
-	}
-
-	void SpawnCar()
-	{
-		carCount++;
-		Vector3 position = this.transform.position + GetCarTranslateValue();
-		Quaternion direction = Quaternion.Euler(0, this.transform.rotation.eulerAngles.y, 0);
-
-		potholeManager.PlaceCarNextPothole(position, direction, this.transform);
-	}
-
-	Vector3 GetCarTranslateValue()
-	{
-		Vector3 translateVector = new Vector3(0, 0, 0);
-
-		if (size == PotholeSize.Small)
-		{
-			translateVector -= 0.35f * transform.right;
-			translateVector -= 0.1f * transform.up;
-		}
-		else
-		{
-			translateVector += 0.35f * transform.right;
-			translateVector += 0.2f * transform.up;
-		}
-
-		translateVector += transform.up * (carCount * 0.7f);
-
-		return translateVector;
-	}
-
 	public void StartSolvePothole(int workerCount)
 	{
 		this.status = PotholeStatus.InProgress;
@@ -131,6 +97,7 @@ public class Pothole : MonoBehaviour
 	void FinishPothole()
 	{
 		this.status = PotholeStatus.Done;
+		OnPotholeDestruction?.Invoke();
 
 		potholeManager.FinishPothole(this, this.assignedWorkers);
 	}
